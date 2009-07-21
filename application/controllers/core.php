@@ -1,4 +1,4 @@
-<?php <?php defined('SYSPATH') OR die('No direct access allowed.');
+<?php defined('SYSPATH') OR die('No direct access allowed.');
 
 /**
  * Core
@@ -17,7 +17,9 @@ abstract class Core_Controller extends Template_Controller
 	public function __construct(){
 		parent::__construct();
 		
-		$this->auth = Auth::factory();
+		$this->auth = Auth::instance();
+		
+		$this->template->app_name = "Billing Cart";
 	}
 }
 /* End of file core.php */
