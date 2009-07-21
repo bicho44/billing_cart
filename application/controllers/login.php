@@ -3,7 +3,7 @@
 /**
  * Login
  *
- * Controls the CMS Authorization and Authentication.
+ * Controls the Application Authorization and Authentication.
  *
  * @license 	MIT Licence
  * @category	Helpers
