@@ -14,6 +14,7 @@ $lang = array
 	(
 		'title'		=> 'Username',
 		'required'	=> 'Please enter a username',
+		'length'	=> 'Please enter a valid username',
 	),
 	'password'      => array
 	(

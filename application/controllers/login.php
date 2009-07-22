@@ -1,5 +1,4 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
-
 /**
  * Login
  *
@@ -12,17 +11,26 @@
  * @copyright	Copyright (c) 2009, Silent Works.
  * @date		20 Jul 2009
  */
-class Login_Controller extends Core_Controller
+class Login_Controller extends Template_Controller
 {
 	// Define Template Controller View
-	public $template = 'master/clean';
+	public $template = 'master/clean_login';
 	
 	public function __construct(){
 		parent::__construct();
+		
+		$this->auth = Auth::instance();
+		
+		$this->template->app_name = "Billing Cart";
 		$this->template->page_title = Kohana::lang('login.page_title');
 	}
 	
 	public function index(){
+		// If remember me is set the autologin
+		if ($this->auth->auto_login()) {
+			url::redirect('dashboard');
+		}
+		
 		$this->template->content = new View('login/index');
 		
 		$form = new Validation($_POST);
@@ -34,21 +42,27 @@ class Login_Controller extends Core_Controller
 		$this->template->content->repopulate = $form;
 			 
 		if ($form->validate()) {
+			// Remember me check
+			$remember = isset($form->remember_me) ? TRUE : FALSE;
+			
 			// Load the user
 			$user = ORM::factory('user', $form->username);
 
 			// Attempt a login
-			if ($this->auth->login($user, $form->password))
+			if ($this->auth->login($user, $form->password, $remember))
 			{
-				echo '<h4>Login Success!</h4>';
-				echo '<p>Your roles are:</p>';
-				echo Kohana::debug($user->roles);
-				return;
+				url::redirect('dashboard');
 			}
 		}
 		
 		// Error
 		$this->template->content->error = $form->errors('login');
+	}
+	
+	public function logout() {
+		if ($this->auth->logout()) {
+			url::redirect('login');
+		}
 	}
 	
 	public function create() {

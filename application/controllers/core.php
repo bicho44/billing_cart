@@ -1,5 +1,4 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
-
 /**
  * Core
  *
@@ -14,10 +13,18 @@
  */
 abstract class Core_Controller extends Template_Controller
 {
+	// Define Template Controller View
+	public $template = 'master/clean';
+	
 	public function __construct(){
 		parent::__construct();
 		
 		$this->auth = Auth::instance();
+		
+		if(!$this->auth->logged_in('login')){
+			url::redirect('login');
+			exit();
+		}
 		
 		$this->template->app_name = "Billing Cart";
 	}
