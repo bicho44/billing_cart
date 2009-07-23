@@ -26,11 +26,14 @@ class Client_Controller extends Core_Controller
 			
 			$client_contact = array();
 			foreach ($clients->find_all() as $client) {
-				$client_contact['client'] = $client;
-				$client_contact['contact'] = $clients->find($client->id)->contacts;
+				$client_contact['client'][$client->id] = $client;
+				// $client_contact['contact'][$client->id] = $clients->find($client->id)->contacts;
+				foreach ($clients->find($client->id)->contacts as $key => $value) {
+					$client_contact['contact'][$client->id] = $value;
+				}
 			}
 			
-			$this->cache->set('client', $client_contact, 'client_cache_db');
+			// $this->cache->set('client', $client_contact, 'client_cache_db');
 		}
 		
 		$this->template->content = new View('clients/index');
