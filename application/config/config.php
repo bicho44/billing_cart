@@ -117,6 +117,7 @@ $config['extension_prefix'] = 'MY_';
 $config['modules'] = array
 (
 	MODPATH.'auth',      // Authentication
+	MODPATH.'formo',      // Form Generation
 	// MODPATH.'kodoc',     // Self-generating documentation
 	// MODPATH.'gmaps',     // Google Maps integration
 	// MODPATH.'archive',   // Archive utility

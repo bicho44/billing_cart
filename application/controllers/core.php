@@ -19,6 +19,7 @@ abstract class Core_Controller extends Template_Controller
 	public function __construct(){
 		parent::__construct();
 		
+		// Load Instance of auth module
 		$this->auth = Auth::instance();
 		
 		if(!$this->auth->logged_in('login')){
@@ -26,8 +27,14 @@ abstract class Core_Controller extends Template_Controller
 			exit();
 		}
 		
+		// Load Instance of session library
+		$this->session = Session::instance();
+		
+		// Instance Cache
+		$this->cache = Cache::instance();
+		
 		$this->template->app_name = "Billing Cart";
 	}
 }
 /* End of file core.php */
-/* Location: /cygdrive/e/learn/bc/application/controllers/core.php */
+/* Location: ./application/controllers/core.php */

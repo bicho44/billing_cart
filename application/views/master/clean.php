@@ -19,6 +19,17 @@
 			</div>
 		</div>
 		
+		<div id="nav" class="container">
+			<ul>
+				<li><a href="<?php echo url::site('dashboard'); ?>">Dashboard</a></li>
+				<li>
+					<a href="<?php echo url::site('client'); ?>">Clients</a>
+					<ul>
+						<li><a href="<?php echo url::site('client/add'); ?>">Add Client</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 		<!-- Content -->
 		<?php echo $content; ?>
 		<!-- Content -->
