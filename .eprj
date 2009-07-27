@@ -9,7 +9,10 @@
                 <string>.git</string>
             </array>
             <key>excludeFiles</key>
-            <array />
+            <array>
+                <string>.eprj</string>
+                <string>*.kpf</string>
+            </array>
             <key>includeDirs</key>
             <array />
             <key>includeFiles</key>

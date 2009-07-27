@@ -29,7 +29,7 @@ class Client_Controller extends Core_Controller
 				
 				$client_contact[$client->id] = $client->as_array();
 				$client_contact[$client->id]['contact'] = array();
-				foreach ($clients->find($client->id)->contacts as $contact) {
+				foreach ($client->contacts as $contact) {
 					array_push($client_contact[$client->id]['contact'], $contact->as_array());
 				}
 			}
@@ -47,12 +47,12 @@ class Client_Controller extends Core_Controller
 		$form = Formo::factory('client_add')->set('class', 'smart-form')
 						->add('company', array('class'=>'size'))
 						->add('address', array('class'=>'size'))
-						->add('address1', array('class'=>'size'))
+						->add('address1', array('class'=>'size', 'required'=>FALSE))
 						->add('city', array('class'=>'size'))
 						->add('postcode', array('class'=>'size'))
 						->add('phone', array('class'=>'size'))
-						->add('fax', array('class'=>'size'))
-						->add('url', array('label'=>'Website', 'class'=>'size'))
+						->add('fax', array('class'=>'size', 'required'=>FALSE))
+						->add('url', array('label'=>'Website', 'class'=>'size', 'required'=>FALSE))
 						->add('submit', 'Submit');
 		
 		if($form->validate()){
@@ -79,12 +79,12 @@ class Client_Controller extends Core_Controller
 		$form = Formo::factory('client_edit')->set('class', 'smart-form')
 						->add('company', array('class'=>'size', 'value'=>$client->company))
 						->add('address', array('class'=>'size', 'value'=>$client->address))
-						->add('address1', array('class'=>'size', 'value'=>$client->address1))
+						->add('address1', array('class'=>'size', 'value'=>$client->address1, 'required'=>FALSE))
 						->add('city', array('class'=>'size', 'value'=>$client->city))
 						->add('postcode', array('class'=>'size', 'value'=>$client->postcode))
 						->add('phone', array('class'=>'size', 'value'=>$client->phone))
-						->add('fax', array('class'=>'size', 'value'=>$client->fax))
-						->add('url', array('label'=>'Website', 'class'=>'size', 'value'=>$client->url))
+						->add('fax', array('class'=>'size', 'value'=>$client->fax, 'required'=>FALSE))
+						->add('url', array('label'=>'Website', 'class'=>'size', 'value'=>$client->url, 'required'=>FALSE))
 						->add('submit', 'Submit');
 		
 		if($form->validate()){

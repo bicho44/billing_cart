@@ -16,13 +16,17 @@ class Client_Model extends ORM
 	// Relationships
 	protected $has_many = array('invoices', 'contacts');
 	
-	public function find_all_as_array()
-	{
+	public function find_all_as_array() {
 		foreach ($this->find_all() as $fields) {
 			$field_array[] = $fields->as_array();
 		}
 		
 		return $field_array;
+	}
+	
+	public function contacts() {
+		$query = Database::instance()->from('clients')->join('contacts', 'contacts.client_id', 'clients.id')->get();
+		return $query->result(FALSE);
 	}
 }
 /* End of file client.php */
