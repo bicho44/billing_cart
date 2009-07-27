@@ -20,11 +20,12 @@ class Install_Controller extends Template_Controller
 		parent::__construct();
 		
 		$this->template->app_name = "Billing Cart";
+		$this->template->bind('error', $this->error);
 	}
 	
 	public function index()
 	{
-		$this->template->title = 'System Check';
+		$this->template->page_title = 'System Check';
 		
 		$view = new View('install/system_check');
 
@@ -32,8 +33,8 @@ class Install_Controller extends Template_Controller
 		$view->system_directory      = (is_dir(SYSPATH) AND is_file(SYSPATH.'core/Bootstrap'.EXT));
 		$view->application_directory = (is_dir(APPPATH) AND is_file(DOCROOT.'application/config/config'.EXT));
 		$view->modules_directory     = is_dir(MODPATH);
-		$view->config_writable       = (is_dir(DOCROOT.'config') AND is_writable(DOCROOT.'config'));
-		$view->cache_writable        = (is_dir(DOCROOT.'config/cache') AND is_writable(DOCROOT.'config/cache'));
+		$view->config_writable       = (is_dir(DOCROOT.'application/config') AND is_writable(DOCROOT.'application/config'));
+		$view->cache_writable        = (is_dir(DOCROOT.'application/cache') AND is_writable(DOCROOT.'application/cache'));
 		$view->pcre_utf8             = @preg_match('/^.$/u', 'ñ');
 		$view->pcre_unicode          = @preg_match('/^\pL$/u', 'ñ');
 		$view->reflection_enabled    = class_exists('ReflectionClass');
@@ -66,7 +67,112 @@ class Install_Controller extends Template_Controller
 	
 	public function database_setup()
 	{
+		$form = Formo::factory('database_setup')->set('class', 'smart-form')
+						->add('host', array('class'=>'size'))
+						->add('username', array('class'=>'size'))
+						->add('password', array('class'=>'size'))
+						->add('database', array('class'=>'size'))
+						->add('prefix', array('class'=>'size'))
+						->add('checkbox', 'drop', array('label'=>'Drop Tables', 'required'=>FALSE))
+						->add('submit', 'Submit');		
+		
+		if($form->validate()){
+			
+			try
+			{
+				setup::check_db($form->username->value, $form->password->value, $form->host->value, $form->database->value);
+				
+				$data = array(
+						'username'=>$form->username->value,
+						'password'=>$form->password->value,
+						'host'=>$form->host->value,
+						'database'=>$form->database->value,
+						'prefix'=>$form->prefix->value,
+						'drop_tables'=>$form->drop->checked
+						);
+				
+				// echo Kohana::debug($data, $form); die;
+				Session::instance()->set('database_data', $data);
+
+				url::redirect('install/step_create_data');
+			}
+			catch (Exception $e)
+			{
+				$error = $e->getMessage();
+
+				// TODO create better error messages
+				switch ($error)
+				{
+					case 'access':
+						$this->error = 'wrong username or password';
+						break;
+					case 'unknown_host':
+						$this->error = 'could not find the host';
+						break;
+					case 'connect_to_host':
+						$this->error = 'could not connect to host';
+						break;
+					case 'select':
+						$this->error = 'could not select the database';
+						break;
+					default:
+						$this->error = $error;
+				}
+			}
+			
+			// ($contact->save() AND url::redirect('client'));
+		}
+		
+		$this->template->page_title = 'Database Setup';
+		
 		$this->template->content = new View('install/database_setup');
+		$this->template->content->form = $form;
+	}
+	
+	public function step_create_data()
+	{
+		$data = Session::instance()->get('database_data');
+		
+		$sql = View::factory('install/sql_table', array('table_prefix' => $data['prefix'], 'drop_tables' => $data['drop_tables']))->render();
+		$sql = explode("\n", $sql);
+		
+		$conn = @mysql_connect($data["host"], $data["username"], $data["password"]);
+		$db = mysql_select_db($data["database"], $conn);
+		
+		if (!$db) {
+		    die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
+		}
+		
+		$buffer = '';
+		foreach ($sql as $line)
+		{
+			$buffer .= $line;
+			if (preg_match('/;$/', $line))
+			{
+				echo Kohana::debug($buffer) . '<br>------------------------<br>';
+				mysql_query($buffer);
+				
+				$buffer = '';
+			}
+			
+		}
+		die;
+		url::redirect('install/complete');
+	}
+	
+	public function complete()
+	{
+		$this->template->page_title = 'Setup Complete';
+		
+		$data = Session::instance()->get('database_data');
+		
+		if ($data !== NULL) {
+			setup::create_database_config($data['username'], $data['password'], $data['host'], $data['database'], $data['prefix']);
+		}
+		
+		Session::instance()->destroy();
+		
+		$this->template->content = View::factory('install/complete');
 	}
 }
 /* End of file install.php */

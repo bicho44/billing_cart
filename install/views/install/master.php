@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		<title><?php echo $app_name; ?></title>
+		<title><?php echo $page_title . ' | '; ?> <?php echo $app_name; ?></title>
 		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/screen.css" type="text/css" media="screen, projection" charset="utf-8" />
 		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/print.css" type="text/css" media="print" charset="utf-8" />
 		<!--[if IE]>
@@ -19,6 +19,12 @@
 			</div>
 		</div>
 		
+		<?php if ( ! empty($error)): ?>
+            <div id="error_message">
+            	<p><?php echo $error ?></p>
+            </div>
+        <?php endif; ?>
+                        
 		<!-- Content -->
 		<?php echo $content; ?>
 		<!-- / - Content -->

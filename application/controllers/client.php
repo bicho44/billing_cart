@@ -15,10 +15,7 @@ class Client_Controller extends Core_Controller
 {
 	public function __construct() {
 		parent::__construct();
-		// new Profiler;
-		
-		// Instance Cache
-		$this->cache = Cache::instance();
+		new Profiler;
 	}
 	
 	public function index() {

@@ -27,7 +27,7 @@ class Login_Controller extends Template_Controller
 	
 	public function index(){
 		// If remember me is set the autologin
-		if ($this->auth->auto_login()) {
+		if ($this->auth->auto_login() || $this->auth->logged_in()) {
 			url::redirect('dashboard');
 		}
 		

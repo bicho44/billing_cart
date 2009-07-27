@@ -1,5 +1,4 @@
-<?php <?php defined('SYSPATH') OR die('No direct access allowed.');
-
+<?php defined('SYSPATH') OR die('No direct access allowed.');
 /**
  * Setup
  *
@@ -35,6 +34,18 @@ class setup
 		}
 
 		return TRUE;
+	}
+	
+	public function create_database_config($username, $password, $hostname, $database, $table_prefix)
+	{
+		$config = new View('install/database_config');
+		$config->username     = $username;
+		$config->password     = $password;
+		$config->hostname     = $hostname;
+		$config->database     = $database;
+		$config->table_prefix = $table_prefix;
+
+		file_put_contents(DOCROOT.'application/config/database.php', $config);
 	}
 }
 /* End of file setup.php */

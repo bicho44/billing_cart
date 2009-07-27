@@ -1,25 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 SET NAMES 'utf8';
 
-<?php if ($drop_tables): ?>
--- Drop Tables
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>clients`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>contacts`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>invoices`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>invoices_items`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>invoices_reminders`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>items`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>reminders`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>roles`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>roles_users`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>sessions`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>users`;
-DROP TABLE IF EXISTS `<?php echo $table_prefix ?>user_tokens`;
-<?php endif ?>
-
-
--- Create  Tables if they don't already exist
--- Clients Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>clients` (
   `id` int(11) NOT NULL auto_increment,
   `company` varchar(65) default NULL,
@@ -35,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>clients` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
--- Contacts Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>contacts` (
   `id` int(11) NOT NULL auto_increment,
   `client_id` int(11) NOT NULL,
@@ -48,7 +28,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>contacts` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
--- Invoice Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>invoices` (
   `id` int(11) NOT NULL auto_increment,
   `client_id` int(11) default NULL,
@@ -60,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>invoices` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Invoice Items Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>invoices_items` (
   `id` int(11) NOT NULL auto_increment,
   `invoice_id` int(11) default NULL,
@@ -68,7 +46,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>invoices_items` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-Invoice Reminder Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>invoices_reminders` (
   `id` int(11) NOT NULL auto_increment,
   `invoice_id` int(11) default NULL,
@@ -78,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>invoices_reminders` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Items Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>items` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(45) default NULL,
@@ -87,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>items` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
--- Roles Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>roles` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(32) NOT NULL,
@@ -100,7 +75,6 @@ INSERT INTO `<?php echo $table_prefix ?>roles` (`id`, `name`, `description`) VAL
 (1, 'login', 'Login privileges, granted after account confirmation'),
 (2, 'admin', 'Administrative user, has access to everything.');
 
--- Users Roles Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>roles_users` (
   `user_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL,
@@ -108,7 +82,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>roles_users` (
   KEY `fk_role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Session Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>sessions` (
   `session_id` varchar(127) NOT NULL,
   `last_activity` int(10) unsigned NOT NULL,
@@ -116,7 +89,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>sessions` (
   PRIMARY KEY  (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Users Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>users` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `email` varchar(127) NOT NULL,
@@ -129,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>users` (
   UNIQUE KEY `uniq_email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
--- Users Token Table
 CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>user_tokens` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `user_id` int(11) unsigned NOT NULL,

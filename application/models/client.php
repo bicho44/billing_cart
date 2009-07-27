@@ -15,6 +15,15 @@ class Client_Model extends ORM
 {
 	// Relationships
 	protected $has_many = array('invoices', 'contacts');
+	
+	public function find_all_as_array()
+	{
+		foreach ($this->find_all() as $fields) {
+			$field_array[] = $fields->as_array();
+		}
+		
+		return $field_array;
+	}
 }
 /* End of file client.php */
 /* Location: /cygdrive/c/projects/dev/bc/application/models/client.php */
