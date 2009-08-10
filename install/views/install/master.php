@@ -30,7 +30,7 @@
 		<!-- / - Content -->
 		
 		<div id="footer">
-			<div class="container showgrid">
+			<!-- <div class="container showgrid">
 				<div id="sister-sites" class="module">
 					<h3>More Developments</h3>
 					<ul>
@@ -54,7 +54,7 @@
 						<li class="email">email: <a href="mailto:london@syzygy.net">london@syzygy.net</a></li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</body>
 </html>
