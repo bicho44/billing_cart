@@ -34,11 +34,12 @@ body { margin: 0; }
 /*            MAIN CONTENT            */
 /**************************************/
 #content { background-color: #fff; }
+#content.login-page .container { width: 570px; }
 
 /* Form Elements */
 #content .smart-form { padding: 8px 0 90px; }
 #content .smart-form p { margin-bottom: 6px; }
-#content .smart-form p label { float: left; width: 188px; padding: 10px 0; }
+#content .smart-form p label { float: left; width: 188px; padding: 0; }
 #content .smart-form p input { font-size: 1.4em; font-weight: normal; font-family: Arial, "MS Trebuchet", Verdana, sans-serif; }
 #content .smart-form p input.size { width: 340px; padding: 8px 10px; }
 #content .smart-form div.actions { float: right; margin-top: 9px; padding-right: 2px; text-align: right; }
@@ -46,6 +47,7 @@ body { margin: 0; }
 #content .smart-form div.actions #checkbox { display: block; margin-top: 10px; text-align: center; }
 #content .smart-form div.actions #checkbox input { background: none; border: 1px solid; margin: 0; padding: 0; }
 #content .smart-form div.actions #checkbox label { margin: 0; padding: 0 0 0 5px; }
+#content .smart-form p input.submit { float: right; margin: 0 20px 0 0; }
 
 /* Overide styles */
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #aaa; outline: none; }
