@@ -70,11 +70,12 @@ class Install_Controller extends Template_Controller
 		$form = Formo::factory('database_setup')->set('class', 'smart-form')
 						->add('host', array('class'=>'size'))
 						->add('username', array('class'=>'size'))
-						->add('password', array('class'=>'size'))
+						->add('password', array('class'=>'size', 'required'=>FALSE))
 						->add('database', array('class'=>'size'))
-						->add('prefix', array('class'=>'size'))
+						->add('prefix', array('class'=>'size', 'value'=>'bc_'))
 						->add('checkbox', 'drop', array('label'=>'Drop Tables', 'required'=>FALSE))
-						->add('submit', 'Submit');		
+						->add('checkbox', 'data', array('label'=>'Insert Data', 'required'=>FALSE))
+						->add('submit', 'submit', array('value'=>'Install', 'class'=>'submit'));		
 		
 		if($form->validate()){
 			
@@ -88,13 +89,14 @@ class Install_Controller extends Template_Controller
 						'host'=>$form->host->value,
 						'database'=>$form->database->value,
 						'prefix'=>$form->prefix->value,
-						'drop_tables'=>$form->drop->checked
+						'data'=>$form->data->checked
 						);
 				
-				// echo Kohana::debug($data, $form); die;
 				Session::instance()->set('database_data', $data);
+				
+				$redirect = $form->drop->checked ? 'install/step_drop_tables' : 'install/step_create_structure';
 
-				url::redirect('install/step_create_data');
+				url::redirect($redirect);
 			}
 			catch (Exception $e)
 			{
@@ -119,8 +121,6 @@ class Install_Controller extends Template_Controller
 						$this->error = $error;
 				}
 			}
-			
-			// ($contact->save() AND url::redirect('client'));
 		}
 		
 		$this->template->page_title = 'Database Setup';
@@ -129,11 +129,11 @@ class Install_Controller extends Template_Controller
 		$this->template->content->form = $form;
 	}
 	
-	public function step_create_data()
+	public function step_drop_tables()
 	{
 		$data = Session::instance()->get('database_data');
 		
-		$sql = View::factory('install/sql_table', array('table_prefix' => $data['prefix'], 'drop_tables' => $data['drop_tables']))->render();
+		$sql = View::factory('install/sql_drop_tables', array('table_prefix' => $data['prefix']))->render();
 		$sql = explode("\n", $sql);
 		
 		$conn = @mysql_connect($data["host"], $data["username"], $data["password"]);
@@ -149,14 +149,74 @@ class Install_Controller extends Template_Controller
 			$buffer .= $line;
 			if (preg_match('/;$/', $line))
 			{
-				echo Kohana::debug($buffer) . '<br>------------------------<br>';
+				
 				mysql_query($buffer);
 				
 				$buffer = '';
 			}
 			
 		}
-		die;
+		url::redirect('install/step_create_structure');
+	}
+	
+	public function step_create_structure()
+	{
+		$data = Session::instance()->get('database_data');
+		
+		$sql = View::factory('install/sql_tables', array('table_prefix' => $data['prefix']))->render();
+		$sql = explode("\n", $sql);
+		
+		$conn = @mysql_connect($data["host"], $data["username"], $data["password"]);
+		$db = mysql_select_db($data["database"], $conn);
+		
+		if (!$db) {
+		    die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
+		}
+		
+		$buffer = '';
+		foreach ($sql as $line)
+		{
+			$buffer .= $line;
+			if (preg_match('/;$/', $line))
+			{
+				
+				mysql_query($buffer);
+				
+				$buffer = '';
+			}
+			
+		}
+		$redirect = $data['data'] ? 'install/step_create_data' : 'install/complete';
+		
+		url::redirect($redirect);
+	}
+	
+	public function step_create_data()
+	{
+		$data = Session::instance()->get('database_data');
+		
+		$sql = View::factory('install/sql_data', array('table_prefix' => $data['prefix']))->render();
+		$sql = explode("\n", $sql);
+		
+		$conn = @mysql_connect($data["host"], $data["username"], $data["password"]);
+		$db = mysql_select_db($data["database"], $conn);
+		
+		if (!$db) {
+		    die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
+		}
+		
+		$buffer = '';
+		foreach ($sql as $line)
+		{
+			$buffer .= $line;
+			if (preg_match('/;$/', $line))
+			{
+				mysql_query($buffer);
+				
+				$buffer = '';
+			}
+			
+		}
 		url::redirect('install/complete');
 	}
 	
@@ -176,4 +236,4 @@ class Install_Controller extends Template_Controller
 	}
 }
 /* End of file install.php */
-/* Location: /cygdrive/e/learn/bc/install/controllers/install.php */
+/* Location: ./install/controllers/install.php */
