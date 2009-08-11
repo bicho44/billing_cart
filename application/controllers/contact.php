@@ -36,7 +36,7 @@ class Contact_Controller extends Core_Controller
 						->add('last', array('class'=>'size'))
 						->add('email', array('class'=>'size'))
 						->add('phone', array('class'=>'size'))
-						->add('mobile', array('class'=>'size'))
+						->add('mobile', array('class'=>'size', 'required'=>FALSE))
 						->add('submit', 'Submit');
 		
 		if($form->validate()){

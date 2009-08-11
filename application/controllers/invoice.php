@@ -41,6 +41,41 @@ class Invoice_Controller extends Core_Controller
 		$this->template->content = new View('invoices/index');
 		$this->template->content->invoices = $invoice_client;
 	}
+	
+	public function add() {
+		$clients = $this->cache->get('client') ? $this->cache->get('client') : ORM::factory('client')->find_all_as_array();
+		
+		// $client_list = array();
+		foreach ($clients as $client) {
+			$client_list[$client['id']] = $client['company'];
+		}
+		
+		$form = Formo::factory('invoice_add')->set('class', 'smart-form')
+						->add('invoice_no', array('class'=>'size', 'label'=>'Invoice No'))
+						->add_select('client', $client_list, array('class'=>'size'))
+						->add_textarea('notes', array('class'=>'size'))
+						->add('address1', array('class'=>'size', 'required'=>FALSE))
+						->add('url', array('label'=>'Website', 'class'=>'size', 'required'=>FALSE))
+						->add('submit', 'Submit');
+		
+		if($form->validate()){
+			
+			$client = ORM::factory('Client');
+			$client->company = $form->company->value;
+			$client->address = $form->address->value;
+			$client->address1 = $form->address1->value;
+			$client->city = $form->city->value;
+			$client->postcode = $form->postcode->value;
+			$client->phone = $form->phone->value;
+			$client->fax = $form->fax->value;
+			$client->url = $form->url->value;
+			
+			($client->save() AND $this->cache->delete_tag('clients') AND url::redirect('client'));
+		}
+		
+		$this->template->content = new View('invoices/add');
+		$this->template->content->form = $form;
+	}
 }
 /* End of file invoice.php */
 /* Location: /cygdrive/c/projects/dev/bc/application/controllers/invoice.php */
