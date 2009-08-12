@@ -55,7 +55,8 @@ class Install_Controller extends Template_Controller
 			AND $view->iconv_loaded
 			AND $view->mbstring
 			AND $view->uri_determination)
-			url::redirect('install/database_setup');
+				$view->hi = 'hello';
+			// url::redirect('install/database_setup');
 		else
 		{
 			$this->error = 'Billing Cart may not work correctly with your environment.';

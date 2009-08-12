@@ -1,40 +1,40 @@
-/*======================================
-      WELCOME TO THE STYLESHEET
---------------------------------------      
-     Copyright Andrew Smith
-      Author: Andrew Smith
-======================================*/
+/*
+ WELCOME TO THE STYLESHEET
+ Copyright Andrew Smith
+ Author: Andrew Smith
+*/
  
-/**************************************\
-|------------COLOR SCHEME--------------|
-|--------------------------------------|
+/*
+COLOR SCHEME
 - black		#000
 - white		#fff
-\**************************************/
+*/
 
+/* GLOBALS */
+body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
+.container_16 { background: #fff url(img/16_col.gif) repeat-y; }
+/* HEADER */
 
-/**************************************/
-/*              GLOBALS               */
-/**************************************/
-body { margin: 0; }
+/* NAVIGATION */
 
-/**************************************/
-/*              HEADER                */
-/**************************************/
-
-
-
-/**************************************/
-/*             NAVIGATION             */
-/**************************************/
-
-
-
-/**************************************/
-/*            MAIN CONTENT            */
-/**************************************/
+/* MAIN CONTENT */
 #content { background-color: #fff; }
-#content.login-page .container { width: 570px; }
+#main-block, #nav li.active span { background-color: #e1e1e1; }
+#main-block { padding: 12px 20px; }
+#main-block h1 { font-size: 1.4em; }
+#nav li { padding: 12px 10px; position: relative; }
+#nav li.active { background: transparent url(img/tab_bg.png) no-repeat scroll left top; }
+#nav li.active span { color: #000; font-weight: bold; }
+#nav li span { color: #3b87aa; padding: 14px 60px 11px 30px; }
+#nav li em { background-image: url(img/list_numbers.png); display: block; height: 24px; position: absolute; top: 8px; width: 24px; }
+#nav-1 em { background-position: -2px -2px; }
+#nav-2 em { background-position: -2px -48px; }
+#nav-3 em { background-position: -2px -92px; }
+#nav-4 em { background-position: -2px -133px; }
+#nav-1.active em { background-position: -38px -2px; }
+#nav-2.active em { background-position: -38px -48px; }
+#nav-3.active em { background-position: -38px -92px; }
+#nav-4.active em { background-position: -38px -133px; }
 
 /* Form Elements */
 #content .smart-form { padding: 8px 0 90px; }
@@ -52,9 +52,4 @@ body { margin: 0; }
 /* Overide styles */
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #aaa; outline: none; }
 
-
-/**************************************/
-/*               FOOTER               */
-/**************************************/
-
-
+/* FOOTER */

@@ -4,12 +4,10 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title><?php echo $page_title . ' | '; ?> <?php echo $app_name; ?></title>
-		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/screen.css" type="text/css" media="screen, projection" charset="utf-8" />
-		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/print.css" type="text/css" media="print" charset="utf-8" />
-		<!--[if IE]>
-		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/ie.css" type="text/css" media="screen, projection">
-		<![endif]-->
-		<link rel="stylesheet" href="<?php echo url::base(); ?>install/views/assets/css/style.css" type="text/css" media="screen, projection" charset="utf-8" />
+		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/reset.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/text.css" type="text/css" media="print" />
+		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/960.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="<?php echo url::base(); ?>install/views/assets/css/style.css" type="text/css" media="screen, projection" />
 	</head>
 	
 	<body>

@@ -1,7 +1,6 @@
 <?php defined("SYSPATH") or die("No direct script access.") ?>
 <div id="content" class="login-page">
-	<div class="container showgrd">
-		<h1><span>System Check</span></h1>
+	<div class="container_16">
 		<style type="text/css">
 			#tests table th,
 			#tests table td { padding: 0.2em 0.4em; text-align: left; vertical-align: top; }
@@ -13,7 +12,15 @@
 			#tests #results p.fail { background: #911; }
 		</style>
 		
-		<div id="tests">
+		<ul id="nav" class="grid_4 push_2">
+			<li id="nav-1" class="active"><em></em><span>System Check</span></li>
+			<li id="nav-2"><em></em><span>Database Setup</span></li>
+			<li id="nav-3"><em></em><span>Save Config</span></li>
+			<li id="nav-4"><em></em><span>Complete</span></li>
+		</ul>
+		<div id="main-block" class="grid_10 push_1">
+			<h1><span>System Check</span></h1>
+			<p class="intro">Checking to see if server have all the requirements to install app</p>
 			<table cellspacing="0">
 				<tr>
 					<th>PHP Version</th>
