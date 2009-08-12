@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `<?php echo $table_prefix ?>contacts` (
   `first` varchar(45) default NULL,
   `last` varchar(45) default NULL,
   `email` varchar(45) default NULL,
-  `telephone` varchar(45) default NULL,
+  `phone` varchar(45) default NULL,
   `mobile` varchar(45) default NULL,
   `password` varchar(45) default NULL,
   PRIMARY KEY  (`id`)

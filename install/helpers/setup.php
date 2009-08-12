@@ -36,17 +36,17 @@ class setup
 		return TRUE;
 	}
 	
-	public function create_database_config($username, $password, $hostname, $database, $table_prefix)
+	public function create_database_config($data)
 	{
 		$config = new View('install/database_config');
-		$config->username     = $username;
-		$config->password     = $password;
-		$config->hostname     = $hostname;
-		$config->database     = $database;
-		$config->table_prefix = $table_prefix;
+		$config->username     = $data['username'];
+		$config->password     = $data['password'];
+		$config->hostname     = $data['host'];
+		$config->database     = $data['database'];
+		$config->table_prefix = $data['prefix'];
 
-		file_put_contents(DOCROOT.'application/config/database.php', $config);
+		return file_put_contents(DOCROOT.'application/config/database.php', $config);
 	}
 }
 /* End of file setup.php */
-/* Location: /cygdrive/e/learn/bc/install/helpers/setup.php */
+/* Location: ./install/helpers/setup.php */

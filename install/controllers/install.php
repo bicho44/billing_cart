@@ -16,15 +16,14 @@ class Install_Controller extends Template_Controller
 {
 	public $template = 'install/master';
 	
-	public function __construct(){
+	public function __construct() {
 		parent::__construct();
 		
 		$this->template->app_name = "Billing Cart";
 		$this->template->bind('error', $this->error);
 	}
 	
-	public function index()
-	{
+	public function index() {
 		$this->template->page_title = 'System Check';
 		
 		$view = new View('install/system_check');
@@ -59,25 +58,24 @@ class Install_Controller extends Template_Controller
 			url::redirect('install/database_setup');
 		else
 		{
-			$this->error = 'S7Ncms may not work correctly with your environment.';
+			$this->error = 'Billing Cart may not work correctly with your environment.';
 		}
 
 		$this->template->content = $view;
 	}
 	
-	public function database_setup()
-	{
+	public function database_setup() {
 		$form = Formo::factory('database_setup')->set('class', 'smart-form')
 						->add('host', array('class'=>'size'))
 						->add('username', array('class'=>'size'))
-						->add('password', array('class'=>'size', 'required'=>FALSE))
+						->add('password', array('class'=>'size', 'required'=>FALSE))->type('password')
 						->add('database', array('class'=>'size'))
 						->add('prefix', array('class'=>'size', 'value'=>'bc_'))
 						->add('checkbox', 'drop', array('label'=>'Drop Tables', 'required'=>FALSE))
 						->add('checkbox', 'data', array('label'=>'Insert Data', 'required'=>FALSE))
 						->add('submit', 'submit', array('value'=>'Install', 'class'=>'submit'));		
 		
-		if($form->validate()){
+		if($form->validate()) {
 			
 			try
 			{
@@ -129,8 +127,7 @@ class Install_Controller extends Template_Controller
 		$this->template->content->form = $form;
 	}
 	
-	public function step_drop_tables()
-	{
+	public function step_drop_tables() {
 		$data = Session::instance()->get('database_data');
 		
 		$sql = View::factory('install/sql_drop_tables', array('table_prefix' => $data['prefix']))->render();
@@ -139,17 +136,12 @@ class Install_Controller extends Template_Controller
 		$conn = @mysql_connect($data["host"], $data["username"], $data["password"]);
 		$db = mysql_select_db($data["database"], $conn);
 		
-		if (!$db) {
-		    die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
-		}
+		if (!$db) die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
 		
 		$buffer = '';
-		foreach ($sql as $line)
-		{
+		foreach ($sql as $line) {
 			$buffer .= $line;
-			if (preg_match('/;$/', $line))
-			{
-				
+			if (preg_match('/;$/', $line)) {
 				mysql_query($buffer);
 				
 				$buffer = '';
@@ -159,8 +151,7 @@ class Install_Controller extends Template_Controller
 		url::redirect('install/step_create_structure');
 	}
 	
-	public function step_create_structure()
-	{
+	public function step_create_structure() {
 		$data = Session::instance()->get('database_data');
 		
 		$sql = View::factory('install/sql_tables', array('table_prefix' => $data['prefix']))->render();
@@ -169,30 +160,24 @@ class Install_Controller extends Template_Controller
 		$conn = @mysql_connect($data["host"], $data["username"], $data["password"]);
 		$db = mysql_select_db($data["database"], $conn);
 		
-		if (!$db) {
-		    die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
-		}
+		if (!$db) die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
 		
 		$buffer = '';
-		foreach ($sql as $line)
-		{
+		foreach ($sql as $line) {
 			$buffer .= $line;
-			if (preg_match('/;$/', $line))
-			{
-				
+			if (preg_match('/;$/', $line)) {
 				mysql_query($buffer);
 				
 				$buffer = '';
 			}
 			
 		}
-		$redirect = $data['data'] ? 'install/step_create_data' : 'install/complete';
+		$redirect = $data['data'] ? 'install/step_create_data' : 'install/create_db';
 		
 		url::redirect($redirect);
 	}
 	
-	public function step_create_data()
-	{
+	public function step_create_data() {
 		$data = Session::instance()->get('database_data');
 		
 		$sql = View::factory('install/sql_data', array('table_prefix' => $data['prefix']))->render();
@@ -201,9 +186,7 @@ class Install_Controller extends Template_Controller
 		$conn = @mysql_connect($data["host"], $data["username"], $data["password"]);
 		$db = mysql_select_db($data["database"], $conn);
 		
-		if (!$db) {
-		    die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
-		}
+		if (!$db) die ('Can\'t use '. $data["database"] .' : ' . mysql_error());
 		
 		$buffer = '';
 		foreach ($sql as $line)
@@ -217,18 +200,26 @@ class Install_Controller extends Template_Controller
 			}
 			
 		}
-		url::redirect('install/complete');
+		url::redirect('install/create_db');
 	}
 	
-	public function complete()
-	{
-		$this->template->page_title = 'Setup Complete';
+	public function create_db() {
+		$this->template->page_title = 'Creating Database Tables';
 		
 		$data = Session::instance()->get('database_data');
 		
 		if ($data !== NULL) {
-			setup::create_database_config($data['username'], $data['password'], $data['host'], $data['database'], $data['prefix']);
+			if(setup::create_database_config($data)) {
+				url::redirect('install/complete');
+			}
+			$this->error = 'unable to write database.php file';
 		}
+		
+		$this->template->content = View::factory('install/complete');
+	}
+	
+	public function complete() {
+		$this->template->page_title = 'Setup Complete';
 		
 		Session::instance()->destroy();
 		

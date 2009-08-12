@@ -30,15 +30,15 @@ $config['default'] = array
 	'connection'    => array
 	(
 		'type'     => 'mysql',
-		'user'     => '',
-		'pass'     => '',
-		'host'     => '',
+		'user'     => 'root',
+		'pass'     => 'meltdown',
+		'host'     => 'localhost',
 		'port'     => FALSE,
 		'socket'   => FALSE,
-		'database' => ''
+		'database' => 'bc2'
 	),
 	'character_set' => 'utf8',
-	'table_prefix'  => '',
+	'table_prefix'  => 'bc_',
 	'object'        => TRUE,
 	'cache'         => TRUE,
 	'escape'        => TRUE
