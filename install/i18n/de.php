@@ -6,7 +6,7 @@ return array
 	// Controller
 	'System Check' => 'System Check',
 	'%bc will work correctly with your environment' => '%bc wird korrekt mit Ihrer Umgebung',
-	'%bc may not work correctly with your environment' => '%bc möglicherweise nicht richtig mit Ihrem Umfeld',
+	'%bc may not work correctly with your environment, issues are listed below' => '%bc möglicherweise nicht richtig mit Ihrem Umfeld, Fragen sind nachstehend aufgeführt',
 	
 	// Views
 	'Database Setup' => 'Datenbank-Setup',

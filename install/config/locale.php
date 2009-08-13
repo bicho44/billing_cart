@@ -7,8 +7,8 @@
  * for OS's that don't support the first (e.g. Windows). The first valid locale in the array will be used.
  * @see http://php.net/setlocale
  */
-// $config['language'] = array('en_GB', 'English_Great Britian');
-$config['language'] = array('de_DE', 'German_Germany');
+$config['language'] = array('en_GB', 'English_Great Britian');
+// $config['language'] = array('de_DE', 'German_Germany');
 
 /**
  * Available languages.
@@ -16,7 +16,7 @@ $config['language'] = array('de_DE', 'German_Germany');
 $config['languages'] = array
 (
 	'de' => array('language' => array('de_DE', 'German_Germany'), 'name' => 'Deutsch'),
-	'en' => array('language' => array('en_US', 'English_United States'), 'name' => 'English')
+	'en' => array('language' => array('en_GB', 'English_Great Britian'), 'name' => 'English')
 );
 
 /**

@@ -1,26 +1,23 @@
 <?php defined("SYSPATH") or die("No direct script access.") ?>
 <div id="content" class="login-page">
 	<div class="container_16">
-		<style type="text/css">
-			#tests table th,
-			#tests table td { padding: 0.2em 0.4em; text-align: left; vertical-align: top; }
-			#tests table td.pass { color: #191; }
-			#tests table td.fail { color: #911; }
-			#tests #results { color: #fff; }
-			#tests #results p { padding: 0.8em 0.4em; }
-			#tests #results p.pass { background: #191; }
-			#tests #results p.fail { background: #911; }
-		</style>
 		
-		<ul id="nav" class="grid_4 push_2">
+		<ul id="nav" class="grid_4 push_1">
 			<li id="nav-1" class="active"><em></em><span><?php echo __('System Check'); ?></span></li>
 			<li id="nav-2"><em></em><span><?php echo __('Database Setup'); ?></span></li>
 			<li id="nav-3"><em></em><span><?php echo __('Save Config'); ?></span></li>
 			<li id="nav-4"><em></em><span><?php echo __('Complete'); ?></span></li>
 		</ul>
-		<div id="main-block" class="grid_10 push_1">
+		<div id="main-block" class="grid_10">
 			<h1><span><?php echo __('System Check'); ?></span></h1>
 			<p class="intro"><?php echo __('Checking to see if server have all the requirements to install app'); ?></p>
+			
+			<!-- Error Message -->
+			<?php if ( ! empty($error)): ?>
+            <div class="error"><p><?php echo $error ?>.</p></div>
+        	<?php endif; ?>
+			<!-- / - Error Message -->
+			
 			<table cellspacing="0">
 				<tr>
 					<th><?php echo __('PHP Version'); ?></th>
@@ -134,9 +131,16 @@
 			
 			</table>
 			
+			<!-- Success Message -->
 			<?php if (!empty($success)): ?>
-				<p><?php echo $success; ?></p>
-			<?php endif ?>
+            <div class="success">
+            	<p><?php echo $success ?>.</p>
+            	<div id="next">
+            		<a href="<?php echo url::site('install/database_setup'); ?>" class="button"><?php echo __('Next'); ?></a>
+            	</div>
+        	</div>
+        	<?php endif; ?>
+			<!-- / - Success Message -->
 		</div>
 	</div>
 </div>

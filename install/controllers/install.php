@@ -50,7 +50,7 @@ class Install_Controller extends Template_Controller
 			AND $view->filters_enabled AND $view->iconv_loaded AND $view->mbstring AND $view->uri_determination) {
 			$view->success = __('%bc will work correctly with your environment', array('%bc' => Kohana::config('bc.bc')));
 		} else {
-			$this->error = __('%bc may not work correctly with your environment', array('%bc' => Kohana::config('bc.bc')));
+			$view->error = __('%bc may not work correctly with your environment, issues are listed below', array('%bc' => Kohana::config('bc.bc')));
 		}
 
 		$this->template->content = $view;
@@ -65,7 +65,7 @@ class Install_Controller extends Template_Controller
 						->add('prefix', array('class'=>'size', 'value'=>'bc_'))
 						->add('checkbox', 'drop', array('label'=>'Drop Tables', 'required'=>FALSE))
 						->add('checkbox', 'data', array('label'=>'Insert Data', 'required'=>FALSE))
-						->add('submit', 'submit', array('value'=>'Install', 'class'=>'submit'));		
+						->add('submit', 'submit', array('value'=>'Install', 'class'=>'button'));		
 		
 		if($form->validate()) {
 			
@@ -113,10 +113,41 @@ class Install_Controller extends Template_Controller
 			}
 		}
 		
-		$this->template->page_title = 'Database Setup';
+		$this->template->page_title = __('Database Setup');
 		
-		$this->template->content = new View('install/database_setup');
-		$this->template->content->form = $form;
+		$data = $form->get(TRUE);
+		$this->template->content = new View('install/database_setup', $data);
+		$this->template->content->success = __('%bc will work correctly with your environment', array('%bc' => Kohana::config('bc.bc')));
+	}
+	
+	public function ajax_db_check($username, $password, $host, $database) {
+		try
+			{
+				setup::check_db($username, $password, $host, $database);
+			}
+			catch (Exception $e)
+			{
+				$error = $e->getMessage();
+
+				// TODO create better error messages
+				switch ($error)
+				{
+					case 'access':
+						return 'wrong username or password';
+						break;
+					case 'unknown_host':
+						return 'could not find the host';
+						break;
+					case 'connect_to_host':
+						return 'could not connect to host';
+						break;
+					case 'select':
+						return 'could not select the database';
+						break;
+					default:
+						return $error;
+				}
+			}
 	}
 	
 	public function step_drop_tables() {

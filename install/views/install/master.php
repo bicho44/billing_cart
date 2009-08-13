@@ -8,6 +8,9 @@
 		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/text.css" type="text/css" media="print" />
 		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/960.css" type="text/css" media="screen, projection">
 		<link rel="stylesheet" href="<?php echo url::base(); ?>install/views/assets/css/style.css" type="text/css" media="screen, projection" />
+		<script type="text/javascript" charset="utf-8">
+			document.writeln('\n\t<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/js_style.css" type="text/css" media="screen, projection" />');
+		</script>
 	</head>
 	
 	<body>
@@ -16,12 +19,6 @@
 				<img src="images/syzygy_logo.jpg" width="70" height="121" alt="<?php echo $app_name; ?>" />
 			</div>
 		</div>
-		
-		<?php if ( ! empty($error)): ?>
-            <div id="error_message">
-            	<p><?php echo $error ?>.</p>
-            </div>
-        <?php endif; ?>
                         
 		<!-- Content -->
 		<?php echo $content; ?>
@@ -54,5 +51,9 @@
 				</div>
 			</div> -->
 		</div>
+		
+		<script src="<?php echo url::base(); ?>assets/js/lib/jquery-1.3.2.min.js" type="text/javascript"></script>
+		<script src="<?php echo url::base(); ?>assets/js/lib/jquery.timer.js" type="text/javascript"></script>
+		<script src="<?php echo url::base(); ?>install/views/assets/js/base.js" type="text/javascript"></script>
 	</body>
 </html>

@@ -12,7 +12,7 @@ COLOR SCHEME
 
 /* GLOBALS */
 body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
-.container_16 { background: #fff url(img/16_col.gif) repeat-y; }
+.container_16 { background: #fff url(../images/16_col.gif) repeat-y; }
 /* HEADER */
 
 /* NAVIGATION */
@@ -23,17 +23,25 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #main-block { padding: 12px 20px; }
 #main-block h1 { font-size: 1.4em; font-weight: normal; padding: 0 0 5px; }
 #main-block .intro { font-style: italic; padding: 0 0 15px; }
+#main-block .error { background-color: #FFEBE8; border: 1px solid #DD3C10; padding: 10px; margin-bottom: 15px; }
+#main-block .success { background-color: #FFFAD7; border: 1px solid #F6EBA9; padding: 15px 10px; margin: 20px 0 10px; position: relative; }
+#main-block .success p { color: #376ca2; margin: 0 !important; }
+#main-block .success p span.hide { display: none; }
 #main-block table { text-align: left; }
 #main-block table th,
 #main-block table td { padding: 5px 40px 5px 0; }
 #main-block table td.pass { color: #191; }
 #main-block table td.fail { color: #911; }
+#main-block #next { position: absolute; right: 10px; top: 16px; }
+#main-block .smart-form #next { top: 7px; }
+#main-block .smart-form #next .button { padding: 8px 20px; }
+#main-block #next .button { background: #376ca2 url(../images/btn_bg.gif) repeat-x scroll left top; border: 1px solid #1a5189; color: #fff; text-decoration: none; padding: 10px 20px; }
 
 #nav li { padding: 12px 10px; position: relative; }
-#nav li.active { background: transparent url(img/tab_bg.png) no-repeat scroll left top; }
+#nav li.active { background: transparent url(../images/tab_bg.png) no-repeat scroll left top; }
 #nav li.active span { color: #000; font-weight: bold; }
 #nav li span { color: #3b87aa; padding: 14px 60px 11px 30px; }
-#nav li em { background-image: url(img/list_numbers.png); display: block; height: 24px; position: absolute; top: 8px; width: 24px; }
+#nav li em { background-image: url(../images/list_numbers.png); display: block; height: 24px; position: absolute; top: 8px; width: 24px; }
 #nav-1 em { background-position: -2px -2px; }
 #nav-2 em { background-position: -2px -48px; }
 #nav-3 em { background-position: -2px -92px; }
@@ -44,11 +52,12 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #nav-4.active em { background-position: -38px -133px; }
 
 /* Form Elements */
-#content .smart-form { padding: 8px 0 90px; }
-#content .smart-form p { margin-bottom: 6px; }
-#content .smart-form p label { float: left; width: 188px; padding: 0; }
+#content .smart-form { padding: 8px 0 0; }
+#content .smart-form p { margin-bottom: 10px; }
+#content .smart-form p label { float: left; width: 188px; padding: 10px 0pt; }
+#content .smart-form p.checkbox label { padding: 0; }
 #content .smart-form p input { font-size: 1.4em; font-weight: normal; font-family: Arial, "MS Trebuchet", Verdana, sans-serif; }
-#content .smart-form p input.size { width: 340px; padding: 8px 10px; }
+#content .smart-form p input.size { border: 1px solid #ccc; padding: 8px 10px; width: 340px; }
 #content .smart-form div.actions { float: right; margin-top: 9px; padding-right: 2px; text-align: right; }
 #content .smart-form div.actions input { background-color: #e51d9b; border: none; color: #fff; font-family: Arial, "MS Trebuchet", sans-serif; font-weight: bold; padding: 10px 10px 7px 12px; }
 #content .smart-form div.actions #checkbox { display: block; margin-top: 10px; text-align: center; }

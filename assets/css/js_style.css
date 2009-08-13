@@ -1,0 +1,4 @@
+/* Styles loaded if javascript is enabled */
+.js-hide { position: absolute; left: -9999em; display: block; width: 1em; }
+.hide { display: none; }
+.show { display: block; }
