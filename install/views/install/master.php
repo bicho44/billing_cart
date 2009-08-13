@@ -19,7 +19,7 @@
 		
 		<?php if ( ! empty($error)): ?>
             <div id="error_message">
-            	<p><?php echo $error ?></p>
+            	<p><?php echo $error ?>.</p>
             </div>
         <?php endif; ?>
                         

@@ -13,66 +13,66 @@
 		</style>
 		
 		<ul id="nav" class="grid_4 push_2">
-			<li id="nav-1" class="active"><em></em><span>System Check</span></li>
-			<li id="nav-2"><em></em><span>Database Setup</span></li>
-			<li id="nav-3"><em></em><span>Save Config</span></li>
-			<li id="nav-4"><em></em><span>Complete</span></li>
+			<li id="nav-1" class="active"><em></em><span><?php echo __('System Check'); ?></span></li>
+			<li id="nav-2"><em></em><span><?php echo __('Database Setup'); ?></span></li>
+			<li id="nav-3"><em></em><span><?php echo __('Save Config'); ?></span></li>
+			<li id="nav-4"><em></em><span><?php echo __('Complete'); ?></span></li>
 		</ul>
 		<div id="main-block" class="grid_10 push_1">
-			<h1><span>System Check</span></h1>
-			<p class="intro">Checking to see if server have all the requirements to install app</p>
+			<h1><span><?php echo __('System Check'); ?></span></h1>
+			<p class="intro"><?php echo __('Checking to see if server have all the requirements to install app'); ?></p>
 			<table cellspacing="0">
 				<tr>
-					<th>PHP Version</th>
+					<th><?php echo __('PHP Version'); ?></th>
 					<?php if ($php_version): ?>
 					<td class="pass"><?php echo PHP_VERSION ?></td>
 					<?php else: ?>
-					<td class="fail">Kohana requires PHP 5.2 or newer, this version is <?php echo PHP_VERSION ?>.</td>
+					<td class="fail"><?php echo __('%bc requires PHP 5.2 or newer, this version is', array('%bc' => Kohana::config('bc.bc'))); ?> <?php echo PHP_VERSION ?>.</td>
 					<?php endif ?>
 				</tr>
 			
 				<tr>
-					<th>System Directory</th>
+					<th><?php echo __('System Directory'); ?></th>
 					<?php if ($system_directory): ?>
 					<td class="pass"><?php echo SYSPATH ?></td>
 					<?php else: ?>
-					<td class="fail">The configured <code>system</code> directory does not exist or does not contain required files.</td>
+					<td class="fail"><?php echo __('The configured system directory does not exist or does not contain required files'); ?>.</td>
 					<?php endif ?>
 				</tr>
 			
 				<tr>
 					<th>Application Directory</th>
 					<?php if ($application_directory): ?>
-					<td class="pass"><?php echo APPPATH ?></td>
+					<td class="pass"><?php echo str_replace('\\', '/', realpath(DOCROOT.'application')).'/' ?></td>
 					<?php else: ?>
-					<td class="fail">The configured <code>application</code> directory does not exist or does not contain required files.</td>
+					<td class="fail"><?php echo __('The configured application directory does not exist or does not contain required files'); ?>.</td>
 					<?php endif ?>
 				</tr>
-			
+				
 				<tr>
-					<th>Modules Directory</th>
+					<th><?php echo __('Config Directory'); ?></th>
+					<?php if ($config_writable): ?>
+					<td class="pass"><?php echo __('%config_dir is writable', array('%config_dir' => $config_dir)); ?></td>
+					<?php else: ?>
+					<td class="fail"><?php echo __('The directory %config_dir does not exist or is not writable', array('%config_dir' => $config_dir)); ?>.</td>
+					<?php endif ?>
+				</tr>
+				
+				<tr>
+					<th><?php echo __('Cache Directory'); ?></th>
+					<?php if ($cache_writable): ?>
+					<td class="pass"><?php echo __('%cache_dir is writable', array('%cache_dir' => $cache_dir)); ?></td>
+					<?php else: ?>
+					<td class="fail"><?php echo __('The directory %cache_dir does not exist or is not writable', array('%cache_dir' => $cache_dir)); ?>.</td>
+					<?php endif ?>
+				</tr>
+				
+				<tr>
+					<th><?php echo __('Modules Directory'); ?></th>
 					<?php if ($modules_directory): ?>
 					<td class="pass"><?php echo MODPATH ?></td>
 					<?php else: ?>
-					<td class="fail">The configured <code>modules</code> directory does not exist or does not contain required files.</td>
-					<?php endif ?>
-				</tr>
-				
-				<tr>
-					<th>Config Directory</th>
-					<?php if ($config_writable): ?>
-					<td class="pass"><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/config')).'/' ?> is writable</td>
-					<?php else: ?>
-					<td class="fail">The directory <code><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/config')).'/' ?></code> does not exist or is not writable.</td>
-					<?php endif ?>
-				</tr>
-				
-				<tr>
-					<th>Cache Directory</th>
-					<?php if ($cache_writable): ?>
-					<td class="pass"><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/cache')).'/' ?> is writable</td>
-					<?php else: ?>
-					<td class="fail">The <code><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/cache')).'/' ?></code> directory is not writable.</td>
+					<td class="fail"><?php echo __('The configured modules directory does not exist or does not contain required files'); ?>.</td>
 					<?php endif ?>
 				</tr>
 			
@@ -133,6 +133,10 @@
 				</tr>
 			
 			</table>
+			
+			<?php if (!empty($success)): ?>
+				<p><?php echo $success; ?></p>
+			<?php endif ?>
 		</div>
 	</div>
 </div>

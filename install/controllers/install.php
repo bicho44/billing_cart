@@ -24,14 +24,14 @@ class Install_Controller extends Template_Controller
 	}
 	
 	public function index() {
-		$this->template->page_title = 'System Check';
+		$this->template->page_title = __('System Check');
 		
 		$view = new View('install/system_check');
-
+		
 		$view->php_version           = version_compare(PHP_VERSION, '5.2', '>=');
 		$view->system_directory      = (is_dir(SYSPATH) AND is_file(SYSPATH.'core/Bootstrap'.EXT));
 		$view->application_directory = (is_dir(APPPATH) AND is_file(DOCROOT.'application/config/config'.EXT));
-		$view->modules_directory     = is_dir(MODPATH);
+		$view->modules_directory     = (is_dir(MODPATH) AND file_exists(DOCROOT.'application/modules'));
 		$view->config_writable       = (is_dir(DOCROOT.'application/config') AND is_writable(DOCROOT.'application/config'));
 		$view->cache_writable        = (is_dir(DOCROOT.'application/cache') AND is_writable(DOCROOT.'application/cache'));
 		$view->pcre_utf8             = @preg_match('/^.$/u', 'ñ');
@@ -41,25 +41,16 @@ class Install_Controller extends Template_Controller
 		$view->iconv_loaded          = extension_loaded('iconv');
 		$view->mbstring              = ( ! (extension_loaded('mbstring') AND ini_get('mbstring.func_overload') AND MB_OVERLOAD_STRING));
 		$view->uri_determination     = isset($_SERVER['REQUEST_URI']) OR isset($_SERVER['PHP_SELF']);
+		
+		$view->config_dir = str_replace('\\', '/', DOCROOT.'application/config').'/';
+		$view->cache_dir = str_replace('\\', '/', DOCROOT.'application/cache').'/';
 
-		if ($view->php_version
-			AND $view->system_directory
-			AND $view->application_directory
-			AND $view->modules_directory
-			AND $view->config_writable
-			AND $view->cache_writable
-			AND $view->pcre_utf8
-			AND $view->pcre_unicode
-			AND $view->reflection_enabled
-			AND $view->filters_enabled
-			AND $view->iconv_loaded
-			AND $view->mbstring
-			AND $view->uri_determination)
-				$view->hi = 'hello';
-			// url::redirect('install/database_setup');
-		else
-		{
-			$this->error = 'Billing Cart may not work correctly with your environment.';
+		if ($view->php_version AND $view->system_directory AND $view->application_directory AND $view->modules_directory
+			AND $view->config_writable AND $view->cache_writable AND $view->pcre_utf8 AND $view->pcre_unicode AND $view->reflection_enabled
+			AND $view->filters_enabled AND $view->iconv_loaded AND $view->mbstring AND $view->uri_determination) {
+			$view->success = __('%bc will work correctly with your environment', array('%bc' => Kohana::config('bc.bc')));
+		} else {
+			$this->error = __('%bc may not work correctly with your environment', array('%bc' => Kohana::config('bc.bc')));
 		}
 
 		$this->template->content = $view;
