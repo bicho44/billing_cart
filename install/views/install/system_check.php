@@ -34,7 +34,7 @@
 				<tr>
 					<th>System Directory</th>
 					<?php if ($system_directory): ?>
-					<td class="pass"><code><?php echo SYSPATH ?></code></td>
+					<td class="pass"><?php echo SYSPATH ?></td>
 					<?php else: ?>
 					<td class="fail">The configured <code>system</code> directory does not exist or does not contain required files.</td>
 					<?php endif ?>
@@ -43,7 +43,7 @@
 				<tr>
 					<th>Application Directory</th>
 					<?php if ($application_directory): ?>
-					<td class="pass"><code><?php echo APPPATH ?></code></td>
+					<td class="pass"><?php echo APPPATH ?></td>
 					<?php else: ?>
 					<td class="fail">The configured <code>application</code> directory does not exist or does not contain required files.</td>
 					<?php endif ?>
@@ -52,7 +52,7 @@
 				<tr>
 					<th>Modules Directory</th>
 					<?php if ($modules_directory): ?>
-					<td class="pass"><code><?php echo MODPATH ?></code></td>
+					<td class="pass"><?php echo MODPATH ?></td>
 					<?php else: ?>
 					<td class="fail">The configured <code>modules</code> directory does not exist or does not contain required files.</td>
 					<?php endif ?>
@@ -61,7 +61,7 @@
 				<tr>
 					<th>Config Directory</th>
 					<?php if ($config_writable): ?>
-					<td class="pass"><code><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/config')).'/' ?></code> is writable</td>
+					<td class="pass"><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/config')).'/' ?> is writable</td>
 					<?php else: ?>
 					<td class="fail">The directory <code><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/config')).'/' ?></code> does not exist or is not writable.</td>
 					<?php endif ?>
@@ -70,7 +70,7 @@
 				<tr>
 					<th>Cache Directory</th>
 					<?php if ($cache_writable): ?>
-					<td class="pass"><code><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/cache')).'/' ?></code> is writable</td>
+					<td class="pass"><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/cache')).'/' ?> is writable</td>
 					<?php else: ?>
 					<td class="fail">The <code><?php echo str_replace('\\', '/', realpath(DOCROOT.'application/cache')).'/' ?></code> directory is not writable.</td>
 					<?php endif ?>

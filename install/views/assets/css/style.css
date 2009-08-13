@@ -21,7 +21,14 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #content { background-color: #fff; }
 #main-block, #nav li.active span { background-color: #e1e1e1; }
 #main-block { padding: 12px 20px; }
-#main-block h1 { font-size: 1.4em; }
+#main-block h1 { font-size: 1.4em; font-weight: normal; padding: 0 0 5px; }
+#main-block .intro { font-style: italic; padding: 0 0 15px; }
+#main-block table { text-align: left; }
+#main-block table th,
+#main-block table td { padding: 5px 40px 5px 0; }
+#main-block table td.pass { color: #191; }
+#main-block table td.fail { color: #911; }
+
 #nav li { padding: 12px 10px; position: relative; }
 #nav li.active { background: transparent url(img/tab_bg.png) no-repeat scroll left top; }
 #nav li.active span { color: #000; font-weight: bold; }
