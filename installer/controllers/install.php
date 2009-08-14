@@ -16,7 +16,7 @@ class Install_Controller extends Template_Controller
 {	
 	public function __construct() {
 		parent::__construct();
-		
+		// new Profiler;
 		$this->template->app_name = "Billing Cart";
 		$this->template->bind('error', $this->error);
 	}
@@ -66,10 +66,8 @@ class Install_Controller extends Template_Controller
 						->add('submit', 'submit', array('value'=>'Install', 'class'=>'button'));		
 		
 		if($form->validate()) {
-			
-			try
-			{
-				setup::check_db($form->username->value, $form->password->value, $form->host->value, $form->database->value);
+			try {
+				setup::check_db($form->username->value, $form->password->value, $form->host->value, $form->database->value, $form->prefix->value);
 				
 				$data = array(
 						'username'=>$form->username->value,
@@ -85,28 +83,31 @@ class Install_Controller extends Template_Controller
 				$redirect = $form->drop->checked ? 'install/step_drop_tables' : 'install/step_create_structure';
 
 				url::redirect($redirect);
-			}
-			catch (Exception $e)
-			{
+			} catch (Exception $e) {
 				$error = $e->getMessage();
-
-				// TODO create better error messages
+				Session::instance()->delete('conn_status');
 				switch ($error)
 				{
 					case 'access':
-						$this->error = 'wrong username or password';
+						$conn_error = __('Wrong username or password');
 						break;
 					case 'unknown_host':
-						$this->error = 'could not find the host';
+						$conn_error = __('Could not find the host');
 						break;
 					case 'connect_to_host':
-						$this->error = 'could not connect to host';
+						$conn_error = __('Could not connect to host');
+						break;
+					case 'create':
+						$conn_error = __('Could not create the database');
 						break;
 					case 'select':
-						$this->error = 'could not select the database';
+						$conn_error = __('Could not select the database');
+						break;
+					case 'prefix':
+						$conn_error = __('The Table Prefix you chose is already in use');
 						break;
 					default:
-						$this->error = $error;
+						$conn_error = $error;
 				}
 			}
 		}
@@ -116,36 +117,57 @@ class Install_Controller extends Template_Controller
 		$data = $form->get(TRUE);
 		$this->template->content = new View('install/database_setup', $data);
 		$this->template->content->success = __('%bc will work correctly with your environment', array('%bc' => Kohana::config('bc.bc')));
+		$this->template->content->error = isset($conn_error) ? $conn_error : '';
+		$this->template->content->passed = Session::instance()->get('conn_status');
 	}
 	
-	public function ajax_db_check($username, $password, $host, $database) {
-		try
+	public function ajax_db_check() {
+		if (request::is_ajax()) {
+		    $this->auto_render = FALSE;
+		} else {
+			return Event::run('system.404');
+		}
+		
+		$username = isset($_POST['username']) ? $_POST['username'] : '';
+		$password = isset($_POST['password']) ? $_POST['password'] : '';
+		$host = isset($_POST['host']) ? $_POST['host'] : '';
+		$database = isset($_POST['database']) ? $_POST['database'] : '';
+		$prefix = isset($_POST['prefix']) ? $_POST['prefix'] : '';
+		
+		Session::instance()->delete('conn_status');
+		
+		try {
+			setup::check_db($username, $password, $host, $database, $prefix);
+			
+			Session::instance()->set('conn_status', 'pass');
+			echo __('true:Connection was successful and database was created');
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+			
+			switch ($error)
 			{
-				setup::check_db($username, $password, $host, $database);
+				case 'access':
+					echo __('Wrong username or password');
+					break;
+				case 'unknown_host':
+					echo __('Could not find the host');
+					break;
+				case 'connect_to_host':
+					echo __('Could not connect to host');
+					break;
+				case 'create':
+					echo __('Could not create the database');
+					break;
+				case 'select':
+					echo __('Could not select the database');
+					break;
+				case 'prefix':
+					echo __('The Table Prefix you chose is already in use');
+					break;
+				default:
+					echo $error;
 			}
-			catch (Exception $e)
-			{
-				$error = $e->getMessage();
-
-				// TODO create better error messages
-				switch ($error)
-				{
-					case 'access':
-						return 'wrong username or password';
-						break;
-					case 'unknown_host':
-						return 'could not find the host';
-						break;
-					case 'connect_to_host':
-						return 'could not connect to host';
-						break;
-					case 'select':
-						return 'could not select the database';
-						break;
-					default:
-						return $error;
-				}
-			}
+		}
 	}
 	
 	public function step_drop_tables() {

@@ -2,29 +2,28 @@ $(document).ready(function() {
 	// Stuff to do as soon as the DOM is ready;
 	// expander.init();
 	// clearInput('.smart-form p input.hasDefault');
-	check_database();
+	$('#test-create-db').click(function(e) {
+		var post = $('form.smart-form').serialize();
+		check_database(post, this.href);
+		e.preventDefault();
+	});
 });
 
-function check_database (username, password, host, database) {
-	
-	var that = this;
-	var n = 0;
-	$('#database').focus(function() {
-		that.timer = jQuery.timer(200, function(t) {
-							if(n > 3) log('key pressed', n);
-							t.stop();
-						});
+function check_database (form, url) {
+	$.post(url, form, function(data){
+		var msg = data.split(':');
 		
-		$(this).keyup( function (e){
-			n++;
-			if(e.keyCode !== 8) that.timer.reset(1000);
-		})
+	    if(msg[0] === 'true'){
+	    	$('div.error').remove();
+	    	// $('div.notice:first').fadeOut('fast');
+	    	$('#more-options').fadeIn('fast');
+	    	$('div.success').fadeIn('fast').find('p').prepend(msg[1]);
+	    } else {
+	    	$('div.success').hide();
+	    	$('#more-options').hide();
+	    	$('form.smart-form').before('<div id="ajax" class="error"><p>' + msg + '</p></div>');
+	    }
 	});
-	
-	$('#database').blur(function() {
-		n = 0;
-	});
-	log(n);
 }
 
 // Expand and contract

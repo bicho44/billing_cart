@@ -7,12 +7,13 @@
 			<li id="nav-3"><em></em><span><?php echo __('Save Config'); ?></span></li>
 			<li id="nav-4"><em></em><span><?php echo __('Complete'); ?></span></li>
 		</ul>
+		
 		<div id="main-block" class="grid_10">
 			<h1><span><?php echo __('Database Setup'); ?></span></h1>
-			<p class="intro"><?php echo __('Checking to see if server have all the requirements to install app'); ?></p>
+			<p class="intro"><?php echo __('Checking to see if server have all the requirements to install app'); ?> <?php echo $passed; ?></p>
 			
 			<!-- Error Message -->
-			<?php if ( ! empty($error)): ?>
+			<?php if (!empty($error)): ?>
             <div class="error"><p><?php echo $error ?>.</p></div>
         	<?php endif; ?>
 			<!-- / - Error Message -->
@@ -30,7 +31,7 @@
 			</p>
 			<p>
 				<label for="password"><?php echo __('Password'); ?>:</label>
-				<?php echo $host; ?> 
+				<?php echo $password; ?> 
 				<span class="<?php echo $password->error_msg_class; ?>"><?php echo $password->error; ?></span>
 			</p>
 			<p>
@@ -38,29 +39,36 @@
 				<?php echo $database; ?> 
 				<span class="<?php echo $database->error_msg_class; ?>"><?php echo $database->error; ?></span>
 			</p>
-			
-			<div class="notice">
-				<p><?php echo __('You can test and create database table using the button below'); ?></p>
-			</div>
-			
 			<p>
 				<label for="prefix"><?php echo __('Table Prefix'); ?>:</label>
 				<?php echo $prefix; ?> 
 				<span class="<?php echo $prefix->error_msg_class; ?>"><?php echo $prefix->error; ?></span>
 			</p>
-			<p class="checkbox">
-				<label for="drop"><?php echo __('Drop Tables'); ?>:</label>
-				<?php echo $drop; ?> 
-				<span class="<?php echo $drop->error_msg_class; ?>"><?php echo $drop->error; ?></span>
-			</p>
-			<p class="checkbox">
-				<label for="data"><?php echo __('Insert Data'); ?>:</label>
-				<?php echo $data; ?> 
-				<span class="<?php echo $data->error_msg_class; ?>"><?php echo $data->error; ?></span>
-			</p>
+			
+			<div class="notice show">
+				<p><?php echo __('Test connection and try to create database'); ?></p>
+				<div id="next">
+            		<a href="<?php echo url::site('install/ajax_db_check'); ?>" class="button" id="test-create-db"><?php echo __('Test'); ?></a>
+            	</div>
+			</div>
+			
+			<div id="more-options"<?php if($passed == 'pass') echo ' class="show"'; ?>>
+				<h2><?php echo __('Optional fields below'); ?></h2>
+				
+				<p class="checkbox">
+					<label for="drop"><?php echo __('Drop Tables'); ?>:</label>
+					<?php echo $drop; ?> 
+					<span class="<?php echo $drop->error_msg_class; ?>"><?php echo $drop->error; ?></span>
+				</p>
+				<p class="checkbox">
+					<label for="data"><?php echo __('Insert Data'); ?>:</label>
+					<?php echo $data; ?> 
+					<span class="<?php echo $data->error_msg_class; ?>"><?php echo $data->error; ?></span>
+				</p>
+			</div>
 			
 			<!-- Success Message -->
-            <div class="success hide">
+            <div class="success <?php if($passed == 'pass') { echo 'show'; } else { echo 'hide'; } ?>">
             	<p><span class="hide"><?php echo $success ?>.</span>&nbsp;</p>
             	<div id="next">
             		<?php echo $submit; ?>
