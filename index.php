@@ -31,7 +31,7 @@ $kohana_application = 'application';
  *
  * This path can be absolute or relative to this file.
  */
-$kohana_modules = $kohana_application . 'modules';
+$kohana_modules = $kohana_application . '/modules';
 
 /**
  * Kohana system directory. This directory should contain the core/ directory,
