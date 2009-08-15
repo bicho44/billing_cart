@@ -12,26 +12,7 @@
  * @date		20 Jul 2009
  */
 class setup
-{
-	public function check_connection($username, $password, $hostname)
-	{
-		if (!$link = @mysql_connect($hostname, $username, $password)) {
-			if (strpos(mysql_error(), 'Access denied') !== FALSE)
-				throw new Exception('access');
-				
-			elseif (strpos(mysql_error(), 'server host') !== FALSE)
-				throw new Exception('unknown_host');
-				
-			elseif (strpos(mysql_error(), 'connect to') !== FALSE)
-				throw new Exception('connect_to_host');
-				
-			else
-				throw new Exception(mysql_error());
-		}
-
-		return TRUE;
-	}
-	
+{	
 	public function check_db($username, $password, $hostname, $database, $prefix)
 	{
 		if (!$link = @mysql_connect($hostname, $username, $password)) {
@@ -56,9 +37,6 @@ class setup
 	            throw new Exception('create');
 	        }
 	    }
-	    /*elseif (@mysql_query("SELECT COUNT(*) FROM {$database}.`{$prefix}clients`")) {
-	        throw new Exception('prefix');
-	    }*/
 
 		return TRUE;
 	}
@@ -76,4 +54,4 @@ class setup
 	}
 }
 /* End of file setup.php */
-/* Location: ./install/helpers/setup.php */
+/* Location: ./installer/helpers/setup.php */

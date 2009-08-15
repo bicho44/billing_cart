@@ -1,5 +1,4 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
-
 /**
  * Install
  *
@@ -16,10 +15,19 @@ class Install_Controller extends Template_Controller
 {	
 	public function __construct() {
 		parent::__construct();
-		// new Profiler;
-		$this->template->app_name = "Billing Cart";
-		$this->template->bind('error', $this->error);
+		$this->template->app_name = Kohana::config('bc.bc');
 	}
+	
+	/*
+		TODO: Change main index to language selector in future release
+		
+		public function index() {
+			$this->template->page_title = __('Please select your prefered language');
+			
+			$this->template->content = View::factory('install/language');
+		}
+	*/
+	
 	
 	public function index() {
 		$this->template->page_title = __('System Check');
@@ -63,7 +71,7 @@ class Install_Controller extends Template_Controller
 						->add('prefix', array('class'=>'size', 'value'=>'bc_'))
 						->add('checkbox', 'drop', array('label'=>'Drop Tables', 'required'=>FALSE))
 						->add('checkbox', 'data', array('label'=>'Insert Data', 'required'=>FALSE))
-						->add('submit', 'submit', array('value'=>'Install', 'class'=>'button'));		
+						->add('submit', 'submit', array('value'=>__('Install'), 'class'=>'button'));		
 		
 		if($form->validate()) {
 			try {
@@ -89,22 +97,22 @@ class Install_Controller extends Template_Controller
 				switch ($error)
 				{
 					case 'access':
-						$conn_error = __('Wrong username or password');
+						$conn_error = __('Wrong username or password.');
 						break;
 					case 'unknown_host':
-						$conn_error = __('Could not find the host');
+						$conn_error = __('Could not find the host.');
 						break;
 					case 'connect_to_host':
-						$conn_error = __('Could not connect to host');
+						$conn_error = __('Could not connect to host.');
 						break;
 					case 'create':
-						$conn_error = __('Could not create the database');
+						$conn_error = __('Could not create the database.');
 						break;
 					case 'select':
-						$conn_error = __('Could not select the database');
+						$conn_error = __('Could not select the database.');
 						break;
 					case 'prefix':
-						$conn_error = __('The Table Prefix you chose is already in use');
+						$conn_error = __('The Table Prefix you chose is already in use.');
 						break;
 					default:
 						$conn_error = $error;
@@ -147,22 +155,22 @@ class Install_Controller extends Template_Controller
 			switch ($error)
 			{
 				case 'access':
-					echo __('Wrong username or password');
+					echo __('Wrong username or password.');
 					break;
 				case 'unknown_host':
-					echo __('Could not find the host');
+					echo __('Could not find the host.');
 					break;
 				case 'connect_to_host':
-					echo __('Could not connect to host');
+					echo __('Could not connect to host.');
 					break;
 				case 'create':
-					echo __('Could not create the database');
+					echo __('Could not create the database.');
 					break;
 				case 'select':
-					echo __('Could not select the database');
+					echo __('Could not select the database.');
 					break;
 				case 'prefix':
-					echo __('The Table Prefix you chose is already in use');
+					echo __('The Table Prefix you chose is already in use.');
 					break;
 				default:
 					echo $error;
@@ -243,11 +251,11 @@ class Install_Controller extends Template_Controller
 			}
 			
 		}
-		url::redirect('install/create_db');
+		url::redirect('install/save_config');
 	}
 	
-	public function create_db() {
-		$this->template->page_title = 'Creating Database Tables';
+	public function save_config() {
+		$this->template->page_title = __('Saving Database Configuration File');
 		
 		$data = Session::instance()->get('database_data');
 		
@@ -255,14 +263,15 @@ class Install_Controller extends Template_Controller
 			if(setup::create_database_config($data)) {
 				url::redirect('install/complete');
 			}
-			$this->error = 'unable to write database.php file';
+			$error = __('Unable to write database.php config file');
 		}
 		
-		$this->template->content = View::factory('install/complete');
+		$this->template->content = View::factory('install/save_config');
+		$this->template->content->error = isset($error) ? $error : '';
 	}
 	
 	public function complete() {
-		$this->template->page_title = 'Setup Complete';
+		$this->template->page_title = __('Complete');
 		
 		Session::instance()->destroy();
 		
@@ -270,4 +279,4 @@ class Install_Controller extends Template_Controller
 	}
 }
 /* End of file install.php */
-/* Location: ./install/controllers/install.php */
+/* Location: ./installer/controllers/install.php */

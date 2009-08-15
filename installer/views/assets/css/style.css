@@ -12,7 +12,6 @@ COLOR SCHEME
 
 /* GLOBALS */
 body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
-.container_16 { background: #fff url(../images/16_col.gif) repeat-y; }
 /* HEADER */
 
 /* NAVIGATION */
@@ -24,9 +23,9 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #main-block h1 { font-size: 1.4em; font-weight: normal; padding: 0 0 5px; }
 #main-block .intro { font-style: italic; padding: 0 0 15px; }
 #main-block .error { background-color: #FFEBE8; border: 1px solid #DD3C10; padding: 10px; margin-bottom: 15px; }
-#main-block .notice { background-color: #edfcc5; border: 1px solid #a9f3f6; display: none; padding: 15px 10px; margin: 20px 0; position: relative; }
+#main-block .notice { background-color: #FFFAD7; border: 1px solid #F6EBA9; display: none; padding: 15px 10px; margin: 20px 0; position: relative; }
 #main-block .notice p { margin: 0 !important; }
-#main-block .success { background-color: #FFFAD7; border: 1px solid #F6EBA9; padding: 15px 10px; margin: 20px 0 10px; position: relative; }
+#main-block .success { background-color: #edfcc5; border: 1px solid #a9f3f6; padding: 15px 10px; margin: 20px 0 10px; position: relative; }
 #main-block .success p { color: #376ca2; margin: 0 !important; }
 #main-block .success p span.hide { display: none; }
 #main-block table { text-align: left; }
@@ -44,7 +43,7 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #nav li { padding: 12px 10px; position: relative; }
 #nav li.active { background: transparent url(../images/tab_bg.png) no-repeat scroll left top; }
 #nav li.active span { color: #000; font-weight: bold; }
-#nav li span { color: #3b87aa; padding: 14px 60px 11px 30px; }
+#nav li span { color: #3b87aa; padding: 14px 61px 11px 30px; }
 #nav li span a { color: #3b87aa; }
 #nav li em { background-image: url(../images/list_numbers.png); display: block; height: 24px; position: absolute; top: 8px; width: 24px; }
 #nav-1 em { background-position: -2px -2px; }

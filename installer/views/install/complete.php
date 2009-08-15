@@ -9,13 +9,13 @@
 		</ul>
 		<div id="main-block" class="grid_10">
 			<h1><span><?php echo __('Complete'); ?></span></h1>
-			<p class="intro"><?php echo __('You successfully installed Billing Cart!'); ?></p>
+			<p class="intro"><?php echo __('You successfully installed %bc!', array('%bc' => Kohana::config('bc.bc'))); ?></p>
 			
-			<p><?php echo __('Login with the details below and remember to change your password on your first login'); ?>.</p>
+			<p><?php echo __('Login with the details below and remember to change your password on your first login.'); ?></p>
 			
 			<!-- Success Message -->
             <div class="success">
-            	<p><?php echo __('Your username is <strong>admin</strong> and password <strong>password</strong>'); ?>.</p>
+            	<p><?php echo __('Your username is <strong>admin</strong> and password <strong>password</strong>.'); ?></p>
             	<div id="next">
             		<a href="<?php echo url::base(); ?>" class="button"><?php echo __('Go to Login'); ?></a>
             	</div>

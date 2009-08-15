@@ -2,7 +2,7 @@
 	<div class="container_16">
 		
 		<ul id="nav" class="grid_4 push_1">
-			<li id="nav-1"><em></em><span><a href="<?php echo url::site('install'); ?>"><?php echo __('System Check'); ?></a></span></li>
+			<li id="nav-1"><em></em><span><?php echo __('System Check'); ?></span></li>
 			<li id="nav-2" class="active"><em></em><span><?php echo __('Database Setup'); ?></span></li>
 			<li id="nav-3"><em></em><span><?php echo __('Save Config'); ?></span></li>
 			<li id="nav-4"><em></em><span><?php echo __('Complete'); ?></span></li>

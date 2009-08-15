@@ -22,4 +22,4 @@ function __n($singular, $plural, $count, array $values = array())
 	return strtr($string, array_merge($values, array('%count' => $count)));
 }
 /* End of file bc.php */
-/* Location: ./install/hooks/bc.php */
+/* Location: ./installer/hooks/bc.php */

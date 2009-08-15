@@ -38,7 +38,7 @@
 				</tr>
 			
 				<tr>
-					<th>Application Directory</th>
+					<th><?php echo __('Application Directory'); ?></th>
 					<?php if ($application_directory): ?>
 					<td class="pass"><?php echo str_replace('\\', '/', realpath(DOCROOT.'application')).'/' ?></td>
 					<?php else: ?>
@@ -75,57 +75,57 @@
 			
 				<tr>
 					<th>PCRE UTF-8</th>
-					<?php if ( ! $pcre_utf8): ?>
-					<td class="fail"><a href="http://php.net/pcre">PCRE</a> has not been compiled with UTF-8 support.</td>
+					<?php if ( ! $pcre_utf8): $php_pcre = '<a href="http://php.net/pcre">PCRE</a>' ?>
+					<td class="fail"><?php echo __('%php_pcre has not been compiled with UTF-8 support', array('%php_pcre' => $php_pcre)); ?>.</td>
 					<?php elseif ( ! $pcre_unicode ): ?>
-					<td class="fail"><a href="http://php.net/pcre">PCRE</a> has not been compiled with Unicode property support.</td>
+					<td class="fail"><?php echo __('%php_pcre has not been compiled with Unicode property support', array('%php_pcre' => $php_pcre)); ?>.</td>
 					<?php else: ?>
-					<td class="pass">Pass</td>
+					<td class="pass"><?php echo __('Pass'); ?></td>
 					<?php endif ?>
 				</tr>
 				
 				<tr>
 					<th>Reflection Enabled</th>
 					<?php if ($reflection_enabled): ?>
-					<td class="pass">Pass</td>
+					<td class="pass"><?php echo __('Pass'); ?></td>
 					<?php else: ?>
-					<td class="fail">PHP <a href="http://www.php.net/reflection">reflection</a> is either not loaded or not compiled in.</td>
-					<?php endif ?>
+					<td class="fail"><?php echo __('PHP %reflection is either not loaded or not compiled in', array('%reflection' => '<a href="http://www.php.net/reflection">reflection</a>')) ?>.</td>
+				<?php endif ?>
 				</tr>
 			
 				<tr>
 					<th>Filters Enabled</th>
 					<?php if ($filters_enabled): ?>
-					<td class="pass">Pass</td>
+					<td class="pass"><?php echo __('Pass'); ?></td>
 					<?php else: ?>
-					<td class="fail">The <a href="http://www.php.net/filter">filter</a> extension is either not loaded or not compiled in.</td>
+					<td class="fail"><?php echo __('The %filter extension is either not loaded or not compiled in', array('%filter' => '<a href="http://www.php.net/filter">filter</a>')) ?>.</td>
 					<?php endif ?>
 				</tr>
 			
 				<tr>
 					<th>Iconv Extension Loaded</th>
 					<?php if ($iconv_loaded): ?>
-					<td class="pass">Pass</td>
+					<td class="pass"><?php echo __('Pass'); ?></td>
 					<?php else: ?>
-					<td class="fail">The <a href="http://php.net/iconv">iconv</a> extension is not loaded.</td>
+					<td class="fail"><?php echo __('The %iconv extension is not loaded', array('%iconv' => '<a href="http://php.net/iconv">iconv</a>')); ?>.</td>
 					<?php endif ?>
 				</tr>
 			
 				<tr>
 					<th>Mbstring Not Overloaded</th>
 					<?php if ($mbstring): ?>
-					<td class="pass">Pass</td>
+					<td class="pass"><?php echo __('Pass'); ?></td>
 					<?php else: ?>
-					<td class="fail">The <a href="http://php.net/mbstring">mbstring</a> extension is overloading PHP's native string functions.</td>
+					<td class="fail"><?php echo __('The %mbstring extension is overloading PHP\'s native string functions', array('%mbstring' => '<a href="http://php.net/mbstring">mbstring</a>')) ?>.</td>
 					<?php endif ?>
 				</tr>
 			
 				<tr>
 					<th>URI Determination</th>
 					<?php if ($uri_determination): ?>
-					<td class="pass">Pass</td>
+					<td class="pass"><?php echo __('Pass'); ?></td>
 					<?php else: ?>
-					<td class="fail">Neither <code>$_SERVER['REQUEST_URI']</code> or <code>$_SERVER['PHP_SELF']</code> is available.</td>
+					<td class="fail"><?php echo __('Neither %request_uri or %php_self is available', array('%request_uri' => '<code>$_SERVER[\'REQUEST_URI\']</code>', '%php_self' => '<code>$_SERVER[\'PHP_SELF\']</code>')) ?>.</td>
 					<?php endif ?>
 				</tr>
 			
