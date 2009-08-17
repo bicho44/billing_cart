@@ -2,7 +2,7 @@
 /**
  * Core
  *
- * Controls the CMS Authorization and Authentication.
+ * Controls the Application Authorization and Authentication.
  *
  * @license 	MIT Licence
  * @category	Helpers
@@ -12,10 +12,7 @@
  * @date		20 Jul 2009
  */
 abstract class Core_Controller extends Template_Controller
-{
-	// Define Template Controller View
-	public $template = 'master/clean';
-	
+{	
 	public function __construct(){
 		parent::__construct();
 		
@@ -33,7 +30,7 @@ abstract class Core_Controller extends Template_Controller
 		// Instance Cache
 		$this->cache = Cache::instance();
 		
-		$this->template->app_name = "Billing Cart";
+		$this->template->app_name = Kohana::config('bc.bc');
 	}
 }
 /* End of file core.php */
