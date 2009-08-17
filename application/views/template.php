@@ -4,12 +4,13 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title><?php echo isset($page_title) ? $page_title . ' | ' : ''; ?><?php echo $app_name; ?></title>
-		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/screen.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/print.css" type="text/css" media="print" />
-		<!--[if IE]>
-		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/ie.css" type="text/css" media="screen, projection">
-		<![endif]-->
+		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/reset.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/text.css" type="text/css" media="print" />
+		<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/960.css" type="text/css" media="screen, projection">
 		<link rel="stylesheet" href="<?php echo url::base(); ?>/assets/css/style.css" type="text/css" media="screen, projection" />
+		<script type="text/javascript" charset="utf-8">
+			document.writeln('\n\t<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/js_style.css" type="text/css" media="screen, projection" />');
+		</script>
 	</head>
 	
 	<body>
@@ -19,23 +20,24 @@
 			</div>
 		</div>
 		
-		<div id="nav" class="container">
+		<div id="nav" class="container_16">
 			<ul>
-				<li><a href="<?php echo url::site('dashboard'); ?>">Dashboard</a></li>
+				<li class="active"><a href="<?php echo url::site('dashboard'); ?>">Dashboard</a></li>
 				<li>
 					<a href="<?php echo url::site('client'); ?>">Clients</a>
-					<ul>
-						<li><a href="<?php echo url::site('client/add'); ?>">Add Client</a></li>
-					</ul>
+					<!-- <ul>
+											<li><a href="<?php echo url::site('client/add'); ?>">Add Client</a></li>
+										</ul> -->
 				</li>
 				<li>
 					<a href="<?php echo url::site('invoice'); ?>">Invoices</a>
-					<ul>
-						<li><a href="<?php echo url::site('invoice/add'); ?>">Add Invoice</a></li>
-					</ul>
+					<!-- <ul>
+											<li><a href="<?php echo url::site('invoice/add'); ?>">Add Invoice</a></li>
+										</ul> -->
 				</li>
 			</ul>
 		</div>
+		
 		<!-- Content -->
 		<?php echo $content; ?>
 		<!-- Content -->
