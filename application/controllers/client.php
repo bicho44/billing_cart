@@ -15,7 +15,6 @@ class Client_Controller extends Core_Controller
 {
 	public function __construct() {
 		parent::__construct();
-		new Profiler;
 	}
 	
 	public function index() {
@@ -52,12 +51,12 @@ class Client_Controller extends Core_Controller
 						->add('postcode', array('class'=>'size'))
 						->add('phone', array('class'=>'size'))
 						->add('fax', array('class'=>'size', 'required'=>FALSE))
-						->add('url', array('label'=>'Website', 'class'=>'size', 'required'=>FALSE))
+						->add('url', array('label'=>'Website', 'class'=>'size', 'value'=>'http://', 'required'=>FALSE))
 						->add('submit', 'Submit');
 		
 		if($form->validate()){
 			
-			$client = ORM::factory('Client');
+			$client = ORM::factory('client');
 			$client->company = $form->company->value;
 			$client->address = $form->address->value;
 			$client->address1 = $form->address1->value;
@@ -75,7 +74,7 @@ class Client_Controller extends Core_Controller
 	}
 	
 	public function edit($id) {
-		$client = ORM::factory('Client', (int) $id);
+		$client = ORM::factory('client', (int) $id);
 		$form = Formo::factory('client_edit')->set('class', 'smart-form')
 						->add('company', array('class'=>'size', 'value'=>$client->company))
 						->add('address', array('class'=>'size', 'value'=>$client->address))
@@ -84,7 +83,7 @@ class Client_Controller extends Core_Controller
 						->add('postcode', array('class'=>'size', 'value'=>$client->postcode))
 						->add('phone', array('class'=>'size', 'value'=>$client->phone))
 						->add('fax', array('class'=>'size', 'value'=>$client->fax, 'required'=>FALSE))
-						->add('url', array('label'=>'Website', 'class'=>'size', 'value'=>$client->url, 'required'=>FALSE))
+						->add('url', array('label'=>'Website', 'class'=>'size', 'value'=>$client->url, 'required'=>FALSE))->add_rule('url', 'valid::url')
 						->add('submit', 'Submit');
 		
 		if($form->validate()){

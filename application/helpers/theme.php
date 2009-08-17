@@ -14,7 +14,7 @@
  */
 class theme_Core 
 {
-	public static $name = '';
+	public static $name = 'remember_me';
 	
 	static function load_themes()
 	{
