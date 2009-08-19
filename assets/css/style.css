@@ -15,11 +15,11 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 /* HEADER */
 
 /* NAVIGATION */
-#nav { background-color: #162c35; }
-#nav ul { padding: 12px 4px 0; }
-#nav ul li { display: inline; margin-right: 2px; }
-#nav ul li a { background-color: #3c89ab; padding: 10px 10px 2px; }
-#nav ul li.active a { background-color: #fff; }
+#nav { background: #162c35 url(../images/assets.png) repeat-x scroll 0 0; }
+#nav ul { padding: 12px 4px 4px; }
+#nav ul li { display: inline; margin-right: -2px; }
+#nav ul li a { background: #3C89AB url(../images/assets.png) no-repeat scroll 0 -33px; color: #fff; padding: 6px 10px; text-decoration: none; }
+#nav ul li.active a { background-color: #fff; background-image: none; color: #3C89AB; }
 
 /*#nav li { padding: 12px 10px; position: relative; }
 #nav li.active { background: transparent url(../images/tab_bg.png) no-repeat scroll left top; }

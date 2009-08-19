@@ -15,13 +15,13 @@
 	
 	<body>
 		<div id="header">
-			<div id="logo" class="container">
+			<div id="logo" class="container_16">
 				<img src="images/syzygy_logo.jpg" width="70" height="121" alt="<?php echo $app_name; ?>" />
 			</div>
 		</div>
-		
-		<div id="nav" class="container_16">
-			<ul>
+		<!-- TODO: create navigation dynamically -->
+		<div id="nav">
+			<ul class="container_16">
 				<li class="active"><a href="<?php echo url::site('dashboard'); ?>">Dashboard</a></li>
 				<li>
 					<a href="<?php echo url::site('client'); ?>">Clients</a>
