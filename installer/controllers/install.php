@@ -16,6 +16,7 @@ class Install_Controller extends Template_Controller
 	public function __construct() {
 		parent::__construct();
 		$this->template->app_name = Kohana::config('bc.bc');
+		$this->template->version = Kohana::config('bc.version');
 	}
 	
 	/*

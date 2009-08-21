@@ -11,8 +11,10 @@ COLOR SCHEME
 */
 
 /* GLOBALS */
-body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
+body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 40px 0; }
 /* HEADER */
+#logo a { background: transparent url(../images/logo.png) no-repeat scroll 70px 0px; display: block; height: 80px; position: relative; text-decoration: none; }
+#logo a span.app-name { font-size: 0; height: 0; overflow: hidden; width: 0; }
 
 /* NAVIGATION */
 
@@ -73,3 +75,7 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #aaa; outline: none; }
 
 /* FOOTER */
+#footer p { font-style: italic; text-align: left; padding: 50px 0 0 40px; position: relative; }
+#footer p a { color: #000; text-decoration: none; }
+#footer p a:hover { color: #333; text-decoration: underline; }
+#footer p span.version { color: #000; font-style: italic; position: absolute; right: 4px; top: 50px; }
