@@ -3,3 +3,10 @@
 .hide, #more-options { display: none; }
 .show { display: block; }
 #main-block div.show { display: block; }
+
+#content .smart-form p { height: 40px; margin-bottom: 6px; position: relative; }
+#content .smart-form p label { float: none; left: 99px; padding: 10px; position: absolute; width: 340px; z-index: 99; }
+#content .smart-form p label.partial { opacity: 0.42; }
+#content .smart-form p label.hidden { opacity: 0; z-index: 0; }
+#content .smart-form p input.size { font-weight: bold; width: 340px; padding: 8px 10px; position: absolute; right: 0; }
+#content .smart-form div.actions { margin-top: 15px; padding-right: 0px; }

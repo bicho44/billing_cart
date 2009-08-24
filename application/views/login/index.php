@@ -1,23 +1,23 @@
-<div id="content" class="login-page">
-	<div class="container showgrd">
+<div id="content" class="container_16">
+	<div class="grid_8 push_4">
 		<h1><span><?php echo Kohana::lang('login.title'); ?></span></h1>
-		<form action="<?php echo url::site('login'); ?>" method="post" accept-charset="utf-8" class="smart-form">
+		<?php echo $open; ?>
 			<p>
-				<label for="username"><?php echo Kohana::lang('login.username.title'); ?></label>
-				<input type="text" name="username" tabindex="1" value="<?php if($repopulate['username']) echo $repopulate['username']; ?>";" id="username" class="size" />
-				<?php if(isset($error['username'])) echo $error['username']; ?>
+				<label for="username"><?php echo __('Username') ?></label>
+				<?php echo $username; ?>
+				
 			</p>
 			<p>
-				<label for="password"><?php echo Kohana::lang('login.password.title'); ?></label>
-				<input type="password" name="password" tabindex="2" value="" id="password" class="size" />
-				<?php if(isset($error['password'])) echo $error['password']; ?>
+				<label for="password"><?php echo __('Password') ?></label>
+				<?php echo $password; ?>
+				
 			</p>
 			<div class="actions">
-				<input type="submit" value="<?php echo Kohana::lang('login.submit'); ?>">
+				<input type="submit" value="<?php echo __('Login'); ?>">
 				<span id="checkbox">
-					<input type="checkbox" name="remember_me" tabindex="3" size="1" value="" id="remember_me"/><label for="remember_me"><?php echo Kohana::lang('login.remember_me'); ?></label>
+					<input type="checkbox" name="remember_me" tabindex="3" size="1" value="" id="remember_me"/><label for="remember_me"><?php echo __('remember me') ?></label>
 				</span>
 			</div>
-		</form>
+		<?php echo $close; ?>
 	</div>
 </div>

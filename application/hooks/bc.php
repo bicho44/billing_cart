@@ -19,7 +19,7 @@ unset($bc_themes);
 // Event::add('system.ready', 'plugin::load');
 // Event::add('system.ready', 'config::load');
 
-Event::add('system.post_routing', 'theme::load_themes');
+// Event::add('system.post_routing', 'theme::load_themes');
 
 $lang = Kohana::config('locale.language');
 

@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	// Stuff to do as soon as the DOM is ready;
 	// expander.init();
-	// clearInput('.smart-form p input.hasDefault');
+	clearInput('.smart-form p input.hasDefault');
 });
 
 // Expand and contract

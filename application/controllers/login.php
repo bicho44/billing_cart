@@ -14,15 +14,15 @@
 class Login_Controller extends Template_Controller
 {
 	// Define Template Controller View
-	public $template = 'master/clean_login';
+	public $template = 'login';
 	
 	public function __construct(){
 		parent::__construct();
 		
 		$this->auth = Auth::instance();
 		
-		$this->template->app_name = "Billing Cart";
-		$this->template->page_title = Kohana::lang('login.page_title');
+		$this->template->app_name = Kohana::config('bc.bc');
+		$this->template->page_title = __('Login');
 	}
 	
 	public function index(){
@@ -31,32 +31,26 @@ class Login_Controller extends Template_Controller
 			url::redirect('dashboard');
 		}
 		
-		$this->template->content = new View('login/index');
+		$form = Formo::factory('login')->set('class', 'smart-form')
+						->add('username', array('class'=>'size hasDefault'))
+						->add('password', array('class'=>'size hasDefault'))
+						->add('submit', 'Submit');
 		
-		$form = new Validation($_POST);
-		$form->pre_filter('trim', true);
-		
-		$form->add_rules('username', 'required')
-			 ->add_rules('password', 'required');
-		
-		$this->template->content->repopulate = $form;
-			 
-		if ($form->validate()) {
+		if($form->validate()){
 			// Remember me check
 			$remember = isset($form->remember_me) ? TRUE : FALSE;
 			
 			// Load the user
-			$user = ORM::factory('user', $form->username);
+			$user = ORM::factory('user', $form->username->value);
 
 			// Attempt a login
-			if ($this->auth->login($user, $form->password, $remember))
+			if ($this->auth->login($user, $form->password->value, $remember))
 			{
 				url::redirect('dashboard');
 			}
 		}
 		
-		// Error
-		$this->template->content->error = $form->errors('login');
+		$this->template->content = new View('login/index', $form->get(TRUE));
 	}
 	
 	public function logout() {
