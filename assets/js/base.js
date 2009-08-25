@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	// Stuff to do as soon as the DOM is ready;
 	// expander.init();
+	$('.smart-form #username').focus();
 	clearInput('.smart-form p input.hasDefault');
 });
 
@@ -35,6 +36,15 @@ var expander = {
 function clearInput (cssClass) {
 	// Get the input field and assign it to a variable
 	var focusField = $(cssClass);
+	
+	// If the fields have value leave as is and do not change.
+	if ($('#username').val() !== '') {
+		$('#username').prev().removeClass('partial').addClass('hidden');
+	}
+	
+	if ($('#password').val() !== '') {
+		$('#password').prev().removeClass('partial').addClass('hidden');
+	}
 	
 	focusField.focus( function(){
 		// Assign $(this) to a variable, allowing DOM to do less lookup
