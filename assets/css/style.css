@@ -12,11 +12,16 @@ COLOR SCHEME
 
 /* GLOBALS */
 body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
+
 /* HEADER */
+#login #header { padding: 120px 0 0; }
+#login #logo { width: 459px; margin: 0 auto; }
+#login #logo a { background: transparent url(../images/logo.png) no-repeat scroll 0px; display: block; height: 80px; position: relative; text-decoration: none; width: 240px; }
+#login #logo a span.app-name { font-size: 0; height: 0; overflow: hidden; width: 0; }
 
 /* NAVIGATION */
 #nav { background: #162c35 url(../images/assets.png) repeat-x scroll 0 0; }
-#nav ul { padding: 12px 4px 4px; }
+#nav ul { padding: 12px 16px 4px; }
 #nav ul li { display: inline; margin-right: -2px; }
 #nav ul li a { background: #3C89AB url(../images/assets.png) no-repeat scroll 0 -33px; color: #fff; padding: 6px 10px; text-decoration: none; }
 #nav ul li.active a { background-color: #fff; background-image: none; color: #3C89AB; }
@@ -37,7 +42,9 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #nav-4.active em { background-position: -38px -133px; }*/
 
 /* MAIN CONTENT */
-#content { background-color: #fff; }
+#login #content { width: 459px; margin: 0 auto; }
+
+#content { background-color: #fff; padding: 16px; }
 #main-block, #nav li.active span { background-color: #e1e1e1; }
 #main-block { padding: 12px 20px; }
 #main-block h1 { font-size: 1.4em; font-weight: normal; padding: 0 0 5px; }
@@ -58,21 +65,22 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #main-block .smart-form .notice #next { top: 15px; }
 #main-block .smart-form #next { top: 7px; }
 #main-block .smart-form #next .button { padding: 8px 20px; }
-#main-block #next .button { background: #376ca2 url(../images/btn_bg.gif) repeat-x scroll left top; border: 1px solid #1a5189; color: #fff; text-decoration: none; padding: 10px 20px; }
 
 /* Form Elements */
 #content .smart-form { padding: 8px 0 0; }
 #content .smart-form p { margin-bottom: 10px; }
-#content .smart-form p label { float: left; width: 188px; padding: 10px 0pt; }
+#content .smart-form p label { float: left; width: 188px; padding: 12px 10px; }
 #content .smart-form p.checkbox label { padding: 0; }
 #content .smart-form p input { font-family: Verdana, Arial, sans-serif, sans-serif; font-size: 1.1em; font-weight: normal; }
-#content .smart-form p input.size { border: 1px solid #ccc; padding: 8px 10px; width: 370px; }
+#content .smart-form p input.size { border: 1px solid #ccc; padding: 12px 10px; width: 370px; }
+#content .smart-form .errorMessage { color: #f00; padding: 0 0 0 98px; }
 #content .smart-form div.actions { float: right; margin-top: 9px; padding-right: 2px; text-align: right; }
 #content .smart-form div.actions input { background-color: #e51d9b; border: none; color: #fff; font-weight: bold; padding: 10px 10px 7px 12px; }
-#content .smart-form div.actions #checkbox { display: block; margin-top: 10px; text-align: center; }
+#content .smart-form div.actions #checkbox { display: block; margin: 10px 0; text-align: center; }
 #content .smart-form div.actions #checkbox input { background: none; border: 1px solid; margin: 0; padding: 0; }
-#content .smart-form div.actions #checkbox label { margin: 0; padding: 0 0 0 5px; }
+#content .smart-form div.actions #checkbox label { color: #777; margin: 0; padding: 0 5px 0 0; }
 #content .smart-form p input.submit { float: right; margin: 0 20px 0 0; }
+#content .smart-form #next .button { background: #376ca2 url(../images/btn_bg.gif) repeat-x scroll left top; border: 1px solid #1a5189; color: #fff; text-decoration: none; padding: 10px 20px; }
 
 /* Overide styles */
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #aaa; outline: none; }

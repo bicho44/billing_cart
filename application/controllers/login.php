@@ -34,7 +34,7 @@ class Login_Controller extends Template_Controller
 		$form = Formo::factory('login')->set('class', 'smart-form')
 						->add('username', array('class'=>'size hasDefault'))
 						->add('password', array('class'=>'size hasDefault'))->type('password')
-						->add('submit', 'Submit');
+						->add('submit', 'submit', array('value'=>__('Login'), 'class'=>'button'));
 		
 		if($form->validate()){
 			// Remember me check

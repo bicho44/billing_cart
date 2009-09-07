@@ -72,7 +72,7 @@ class Install_Controller extends Template_Controller
 						->add('prefix', array('class'=>'size', 'value'=>'bc_'))
 						->add('checkbox', 'drop', array('label'=>'Drop Tables', 'required'=>FALSE))
 						->add('checkbox', 'data', array('label'=>'Insert Data', 'required'=>FALSE))
-						->add('submit', 'submit', array('value'=>__('Install'), 'class'=>'button'));		
+						->add('submit', 'submit', array('value'=>__('Install'), 'class'=>'button'));
 		
 		if($form->validate()) {
 			try {

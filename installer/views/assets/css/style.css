@@ -12,6 +12,7 @@ COLOR SCHEME
 
 /* GLOBALS */
 body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 40px 0; }
+
 /* HEADER */
 #logo a { background: transparent url(../images/logo.png) no-repeat scroll 70px 0px; display: block; height: 80px; position: relative; text-decoration: none; }
 #logo a span.app-name { font-size: 0; height: 0; overflow: hidden; width: 0; }
