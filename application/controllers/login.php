@@ -32,10 +32,11 @@ class Login_Controller extends Template_Controller
 		}
 		
 		$form = Formo::factory('login')->set('class', 'smart-form')
-						->add('username', array('class'=>'size hasDefault'))
-						->add('password', array('class'=>'size hasDefault'))->type('password')
+						->add('username', array('class'=>'size hasDefault'))->add_rule('username', 'required', __('You must enter a username'))
+						->add('password', array('class'=>'size hasDefault'))->type('password')->add_rule('password', 'required', __('You must enter a password'))
+                                                ->add('checkbox', 'remember_me', array('label'=>'remember me', 'tabindex'=>3, 'required'=>FALSE))
 						->add('submit', 'submit', array('value'=>__('Login'), 'class'=>'button'));
-		
+
 		if($form->validate()){
 			// Remember me check
 			$remember = isset($form->remember_me) ? TRUE : FALSE;
@@ -44,13 +45,15 @@ class Login_Controller extends Template_Controller
 			$user = ORM::factory('user', $form->username->value);
 
 			// Attempt a login
-			if ($this->auth->login($user, $form->password->value, $remember))
-			{
-				url::redirect('dashboard');
+			if ($this->auth->login($user, $form->password->value, $remember)) {
+                            url::redirect('dashboard');
 			}
+                        
+                        $error = __('Invalid username or password');
 		}
 		
-		$this->template->content = new View('login/index', $form->get(TRUE));
+		$this->template->content = View::factory('login/index', $form->get(TRUE));
+                $this->template->content->error = isset($error) ? $error : '';
 	}
 	
 	public function logout() {

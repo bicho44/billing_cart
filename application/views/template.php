@@ -13,24 +13,29 @@
     <body>
         <div id="header">
             <div id="logo">
-                <img src="images/syzygy_logo.jpg" width="70" height="121" alt="<?php echo $app_name; ?>" />
+                <a href="http://www.billingcart.com" title="invoicing with Billing Cart" target="_blank">
+                    <span class="app-name"><?php echo $app_name; ?></span>
+                </a>
             </div>
         </div>
         <!-- TODO: create navigation dynamically -->
         <div id="nav">
             <ul>
-                <li class="active"><a href="<?php echo url::site('dashboard'); ?>">Dashboard</a></li>
+                <li class="active"><a href="<?php echo url::site('dashboard'); ?>"><?php echo __('Dashboard'); ?></a></li>
                 <li>
-                    <a href="<?php echo url::site('client'); ?>">Clients</a>
+                    <a href="<?php echo url::site('client'); ?>"><?php echo __('Clients'); ?></a>
                     <!-- <ul>
                         <li><a href="<?php echo url::site('client/add'); ?>">Add Client</a></li>
                     </ul> -->
                 </li>
                 <li>
-                    <a href="<?php echo url::site('invoice'); ?>">Invoices</a>
+                    <a href="<?php echo url::site('invoice'); ?>"><?php echo __('Invoices'); ?></a>
                 <!-- <ul>
                         <li><a href="<?php echo url::site('invoice/add'); ?>">Add Invoice</a></li>
                     </ul> -->
+                </li>
+                <li id="settings" class="right">
+                    <a href="<?php echo url::site('setting'); ?>"><?php echo __('Settings'); ?></a>
                 </li>
             </ul>
         </div>

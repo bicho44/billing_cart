@@ -8,5 +8,5 @@
 #content .smart-form p label { float: none; left: 99px; position: absolute; width: 340px; z-index: 99; }
 #content .smart-form p label.partial { opacity: 0.42; }
 #content .smart-form p label.hidden { opacity: 0; z-index: 0; }
-#content .smart-form p input.size { width: 340px; position: absolute; right: 0; }
+#content .smart-form p input.size { position: absolute; right: 0; }
 #content .smart-form div.actions { margin-top: 15px; padding-right: 0px; }
