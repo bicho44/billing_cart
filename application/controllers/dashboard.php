@@ -14,14 +14,14 @@
 class Dashboard_Controller extends Core_Controller
 {
 	public function __construct() {
-		parent::__construct();
-		
-		$this->template->page_title = 'Dashboard';
+        parent::__construct();
+        $this->template->page_title = __('Dashboard');
+        $this->template->sidebar = array('hooks/sidebar/newinvoices', 'hooks/sidebar/standard', 'hooks/sidebar/search');
 	}
 	
 	public function index() {
-		$this->template->content = new View('dashboard/index');
-		$this->template->content->username = $this->auth->get_user()->username;
+        $this->template->content = new View('dashboard/index');
+        $this->template->content->username = $this->auth->get_user()->username;
 	}
 }
 /* End of file dashboard.php */

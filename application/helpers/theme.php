@@ -27,6 +27,55 @@ class theme_Core
 		if (strpos(Router::$current_uri, 'admin') === 0)
 			theme::$name = 'admin';
 	}
+
+    public function nav($selectedclass = 'current') {
+        global $tab;
+        $pages = $tab;
+
+        // Initialize variables
+        $navi = array();
+        $i = 1;
+
+        foreach($pages as $index => $page) {
+                // Full Url
+                $full_url = url::site($page['slug']);
+
+                $navi[$index]['id'] = $page['id'];
+                $navi[$index]['cssid'] = $page['cssid'];
+                $navi[$index]['title'] = $page['title'];
+                $navi[$index]['slug'] = $page['slug'];
+                $navi[$index]['url'] = $full_url;
+                $navi[$index]['parent'] = $page['parent_id'];
+                $navi[$index]['align'] = $page['align'];
+                $navi[$index]['cssmode'] = "";
+
+                $first_item = $i === 1;
+                $current_item = $full_url === url::site(url::current());
+                $last_item = $i === (count($pages));
+
+                if(!$current_item && $first_item) { $navi[$index]['cssmode'] .= "first"; }
+                if($current_item && $first_item) { $navi[$index]['cssmode'] .= "first " . $selectedclass; }
+                if($current_item && $last_item) { $navi[$index]['cssmode'] .= "last " . $selectedclass; }
+                if(!$current_item && $last_item) { $navi[$index]['cssmode'] .= "last"; }
+                if($current_item && !$first_item && !$last_item) { $navi[$index]['cssmode'] .= $selectedclass; }
+
+                $i++;
+        }
+
+        return $navi;
+	}
+	
+	public function hook($name = '')
+	{
+            if(isset($name) AND is_array($name)) {
+                foreach ($name as $nme) {
+                    $file = APPPATH . 'views/' .$nme . '.php';
+                    if(file_exists($file)){
+                        View::factory($nme)->render(TRUE);
+                    }
+                }
+            }
+	}
 }
 /* End of file theme.php */
 /* Location: ./application/helpers/theme.php */
