@@ -16,14 +16,14 @@ class Contacts_Controller extends Core_Controller
 	public function __construct() {
         parent::__construct();
         $this->template->page_title = __('Contacts');
-        new Profiler;
+        //new Profiler;
 	}
 	
 	public function index() {
 		
 	}
 	
-	public function add($client_id) {
+	public function add($client_id = NULL) {
         $client = ORM::factory('client', $client_id);
 
         if ($client->id == '') {
@@ -56,7 +56,7 @@ class Contacts_Controller extends Core_Controller
         $this->template->content->form = $form;
 	}
 	
-	public function edit($id) {
+	public function edit($id = NULL) {
         $contact = ORM::factory('contact', $id);
 
         if ($contact->id == '') {
@@ -87,7 +87,7 @@ class Contacts_Controller extends Core_Controller
         $this->template->content->form = $form;
 	}
 	
-	public function delete($id)
+	public function delete($id = NULL)
 	{
 		
 	}

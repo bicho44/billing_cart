@@ -1,13 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
         <title><?php echo isset($page_title) ? $page_title . ' | ' : ''; ?><?php echo $app_name; ?></title>
         <link rel="stylesheet" href="<?php echo url::base(); ?>/assets/css/style.css" type="text/css" media="screen, projection" />
-        <script type="text/javascript" charset="utf-8">
-            document.writeln('\n\t<link rel="stylesheet" href="<?php echo url::base(); ?>assets/css/js_style.css" type="text/css" media="screen, projection" />');
-        </script>
     </head>
 
     <body>
@@ -35,27 +32,6 @@
                 <?php endforeach ?>
             </ul>
         </div>
-
-        <!--<div id="nav">
-            <ul>
-                <li class="active"><a href="<?php echo url::site('dashboard'); ?>"><?php echo __('Dashboard'); ?></a></li>
-                <li>
-                    <a href="<?php echo url::site('clients'); ?>"><?php echo __('Clients'); ?></a>
-                    <ul>
-                        <li><a href="<?php echo url::site('clients/add'); ?>">Add Client</a></li>
-                    </ul>
-               </li>
-                <li>
-                    <a href="<?php echo url::site('invoices'); ?>"><?php echo __('Invoices'); ?></a>
-                    <ul>
-                        <li><a href="<?php echo url::site('invoices/add'); ?>">Add Invoice</a></li>
-                    </ul>
-                </li>
-                <li id="settings" class="right">
-                    <a href="<?php echo url::site('settings'); ?>"><?php echo __('Settings'); ?></a>
-                </li>
-            </ul>
-        </div> -->
 
         <!-- Content -->
         <div id="content">
