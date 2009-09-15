@@ -16,7 +16,15 @@ class Dashboard_Controller extends Core_Controller
 	public function __construct() {
         parent::__construct();
         $this->template->page_title = __('Dashboard');
-        $this->template->sidebar = array('hooks/sidebar/newinvoices', 'hooks/sidebar/standard', 'hooks/sidebar/search');
+        
+        $clients = $this->cache->get('client') ? $this->cache->get('client') : ORM::factory('client')->find_all_as_array();
+        foreach ($clients as $client) {
+            $client_list[$client['id']] = $client['company'];
+        }
+        
+        $this->template->sidebar = array(
+            'hooks/sidebar/newinvoices'=>array('clients'=>$client_list),
+            'hooks/sidebar/standard'=>'');
 	}
 	
 	public function index() {

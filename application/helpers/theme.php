@@ -65,16 +65,16 @@ class theme_Core
         return $navi;
 	}
 	
-	public function hook($name = '')
-	{
-            if(isset($name) AND is_array($name)) {
-                foreach ($name as $nme) {
-                    $file = APPPATH . 'views/' .$nme . '.php';
-                    if(file_exists($file)){
-                        View::factory($nme)->render(TRUE);
-                    }
+	public function hook($name = '') {
+        if(isset($name) AND is_array($name)) {
+            foreach ($name as $view => $data) {
+                $file = APPPATH . 'views/' .$view . '.php';
+                if(file_exists($file)){
+                    if(isset($data) AND !empty($data)) View::factory($view, $data)->render(TRUE);
+                    else View::factory($view)->render(TRUE);
                 }
             }
+        }
 	}
 }
 /* End of file theme.php */

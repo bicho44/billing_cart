@@ -14,69 +14,79 @@
 class Invoices_Controller extends Core_Controller
 {
 	public function __construct() {
-            parent::__construct();
-            
-            $this->template->page_title = __('Invoices');
-            $this->template->sidebar = array('hooks/sidebar/search');
+        parent::__construct();
+        $this->template->page_title = __('Invoices');
+
+        $clients = $this->cache->get('client') ? $this->cache->get('client') : ORM::factory('client')->find_all_as_array();
+        foreach ($clients as $client) {
+            $client_list[$client['id']] = $client['company'];
+        }
+
+        $this->template->sidebar = array(
+            'hooks/sidebar/newinvoices'=>array('clients'=>$client_list),
+            'hooks/sidebar/standard'=>'');
 	}
 	
 	public function index() {
-            // Check if cached and cache if its not
-            if (!$invoice_client = $this->cache->get('invoice')) {
-                $invoices = ORM::factory('invoice');
+        // Check if cached and cache if its not
+        if (!$invoice_client = $this->cache->get('invoice')) {
+            $invoices = ORM::factory('invoice');
 
-                $invoice_client = array();
-                foreach ($invoices->find_all() as $invoice) {
-                    $invoice_client[$invoice->id] = array();
+            $invoice_client = array();
+            foreach ($invoices->find_all() as $invoice) {
+                $invoice_client[$invoice->id] = array();
 
-                    $invoice_client[$invoice->id] = $invoice->as_array();
-                    $invoice_client[$invoice->id]['item'] = array();
-                    /*foreach ($invoice->items as $item) {
-                            array_push($invoice_client[$invoice->id]['item'], $item->as_array());
-                    }*/
-                }
-
-                // Save cache and give it a tag
-                $tags = array('clients', 'invoice');
-                $this->cache->set('invoice', $invoice_client, $tags);
+                $invoice_client[$invoice->id] = $invoice->as_array();
+                $invoice_client[$invoice->id]['item'] = array();
+                /*foreach ($invoice->items as $item) {
+                        array_push($invoice_client[$invoice->id]['item'], $item->as_array());
+                }*/
             }
 
-            $this->template->content = new View('invoices/index');
-            $this->template->content->invoices = $invoice_client;
+            // Save cache and give it a tag
+            $tags = array('clients', 'invoice');
+            $this->cache->set('invoice', $invoice_client, $tags);
+        }
+
+        $this->template->content = new View('invoices/index');
+        $this->template->content->invoices = $invoice_client;
 	}
 	
 	public function add() {
-            $clients = $this->cache->get('client') ? $this->cache->get('client') : ORM::factory('client')->find_all_as_array();
+        $client_name = $this->input->post('client');
+        if($client_name == '' AND $client_name != '-') url::redirect('clients/new?client=' . urlencode($this->input->post('client_new')));
 
-            // $client_list = array();
-            foreach ($clients as $client) {
-                $client_list[$client['id']] = $client['company'];
-            }
+        $clients = $this->cache->get('client') ? $this->cache->get('client') : ORM::factory('client')->find_all_as_array();
 
-            $form = Formo::factory('invoice_add')->set('class', 'smart-form')
-                                        ->add('invoice_no', array('class'=>'size', 'label'=>'Invoice No'))
-                                        ->add_select('client', $client_list, array('class'=>'size'))
-                                        ->add_textarea('notes', array('class'=>'size'))
-                                        ->add('address1', array('class'=>'size', 'required'=>FALSE))
-                                        ->add('url', array('label'=>'Website', 'class'=>'size', 'required'=>FALSE))
-                                        ->add('submit', 'Submit');
+        // $client_list = array();
+        foreach ($clients as $client) {
+            $client_list[$client['id']] = $client['company'];
+        }
 
-            if($form->validate()){
+        $form = Formo::factory('invoice_add')->set('class', 'smart-form')
+                                    ->add('invoice_no', array('class'=>'size', 'label'=>'Invoice No'))
+                                    ->add_select('client', $client_list, array('class'=>'size'))
+                                    ->add_textarea('notes', array('class'=>'size'))
+                                    ->add('address1', array('class'=>'size', 'required'=>FALSE))
+                                    ->add('url', array('label'=>'Website', 'class'=>'size', 'required'=>FALSE))
+                                    ->add('submit', 'Submit');
 
-                $client = ORM::factory('Client');
-                $client->company = $form->company->value;
-                $client->address = $form->address->value;
-                $client->address1 = $form->address1->value;
-                $client->city = $form->city->value;
-                $client->postcode = $form->postcode->value;
-                $client->phone = $form->phone->value;
-                $client->fax = $form->fax->value;
-                $client->url = $form->url->value;
+        if($form->validate()){
 
-                ($client->save() AND $this->cache->delete_tag('clients') AND url::redirect('client'));
-            }
+            $client = ORM::factory('Client');
+            $client->company = $form->company->value;
+            $client->address = $form->address->value;
+            $client->address1 = $form->address1->value;
+            $client->city = $form->city->value;
+            $client->postcode = $form->postcode->value;
+            $client->phone = $form->phone->value;
+            $client->fax = $form->fax->value;
+            $client->url = $form->url->value;
 
-            $this->template->content = new View('invoices/add', $form->get(TRUE));
+            ($client->save() AND $this->cache->delete_tag('clients') AND url::redirect('client'));
+        }
+
+        $this->template->content = new View('invoices/add', $form->get(TRUE));
 	}
 }
 /* End of file invoice.php */

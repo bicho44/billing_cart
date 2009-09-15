@@ -97,16 +97,26 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #site-map .status.pending-status { color: #009900; }
 #site-map .status.hidden-stats { color: #00CC00; }
 
-#sidebar { position: relative; float: right; width: 18%; min-height: 450px; background-color: #d8dacf; top: 52px; }
+#sidebar { position: relative; float: right; width: 18%; min-height: 450px; /*background-color: #d8dacf;*/ top: 52px; }
 #sidebar .inner { padding: 0 15px; }
-#sidebar #quickmenu { height: 25px; list-style-type: none; padding: 15px 0; margin: 0; }
+#sidebar #quickmenu { height: 25px; list-style-type: none; padding: 0 0 15px; margin: 0; }
 #sidebar #quickmenu ul { list-style-type: none; padding-left: 0; }
 #sidebar #quickmenu li a#quickmenu-btn { background: transparent url('../images/assets.png') no-repeat scroll 0 -95px; color: #fff; display: block; float: left; height: 28px; margin: 0; max-width: 220px; text-decoration: none; /*border: 1px solid #ccc; padding: 7px 72px 7px 20px;*/ }
-#sidebar #quickmenu li a#quickmenu-btn span { float: left; display: block; width: 100%; height: 28px; color: #fff; background: #D8DACF url('../images/assets.png') no-repeat scroll 100% -95px; margin: 0 0 0 19px; padding: 5px 24px 0 10px; }
+#sidebar #quickmenu li a#quickmenu-btn span { float: left; display: block; width: 100%; height: 28px; color: #fff; background: #fff url('../images/assets.png') no-repeat scroll 100% -95px; margin: 0 0 0 19px; padding: 5px 24px 0 10px; }
 #sidebar #quickmenu ul { position: absolute; left: 15px; top: 44px; display: none; font-size: 0.8em; padding: 2px 0px 2px 0px; margin: 0; }
 #sidebar #quickmenu ul li a { display: block; color: #fff; text-decoration: none; min-width: 120px; max-width: 194px; background-color: #004080; padding: 1px 0 0px 20px; border-top: 1px solid #fff; }
 #sidebar #quickmenu ul li a:hover { color: #fff; background-color: #00376F; }
 #sidebar #quickmenu li:hover ul { display: block; }
+
+#sidebar #hook-new-invoice {  }
+#sidebar #hook-new-invoice label { display: none; }
+#sidebar #hook-new-invoice p { height: auto; }
+#sidebar #hook-new-invoice p select.size,
+#sidebar #hook-new-invoice p input.size { border: 1px solid #ccc; padding: 4px; position: static; width: 188px; }
+#sidebar #hook-new-invoice p select.size { width: 198px; }
+#sidebar #hook-new-invoice div.actions { float: none; }
+#sidebar #hook-new-invoice .cancel { float: left; padding: 5px; }
+#sidebar #hook-new-invoice #next .button { padding: 5px 20px; }
 
 #sidebar #search-form { background-color: #fff; margin-right: 5px; padding: 10px 0 10px 10px; }
 #sidebar #search-form .search { width: 75%; border: 1px solid #ccc; }
@@ -120,6 +130,9 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #sidebar #page-types li ul li a:hover { background-color: #777; }
 #sidebar #page-types li ul li a span { background: transparent url(../images/assets.png) no-repeat scroll -168px -40px; padding-left: 20px; }
 #sidebar #page-types li ul li a:hover span { color: #fff; }
+
+.invoice-info { width: 450px; }
+
 
 /* Form Elements */
 #info_message { background-color: #FFFAD7; border: 1px solid #F6EBA9; display: none; padding: 15px 10px; margin: 20px 0; }
@@ -137,7 +150,7 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #content .smart-form div.actions #checkbox input { background: none; border: 1px solid; margin: 0; padding: 0; }
 #content .smart-form div.actions #checkbox label { color: #777; margin: 0; padding: 0 5px 0 0; }
 #content .smart-form p input.submit { float: right; margin: 0 20px 0 0; }
-#content .smart-form #next .button { background: #376ca2 url(../images/btn_bg.gif) repeat-x scroll left top; border: 1px solid #1a5189; color: #fff; text-decoration: none; padding: 10px 20px; }
+#content .smart-form #next .button { background: #376ca2 url(../images/btn_bg.gif) repeat-x scroll left top; border: 1px solid #1a5189; color: #fff; cursor: pointer; padding: 10px 20px; text-decoration: none; }
 
 /* Overide styles */
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #aaa; outline: none; }

@@ -73,7 +73,7 @@
 			</div>
 			
 			<div id="sidebar">
-				<?php echo theme::hook( $sidebar ) ?>
+				<?php echo theme::hook($sidebar) ?>
 			</div>
             
         </div>
