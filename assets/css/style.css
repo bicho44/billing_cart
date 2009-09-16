@@ -102,7 +102,8 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 .table-nice tr th { color: #fff; padding: 6px; }
 .table-nice tbody { padding: 0 10px; }
 .table-nice tr td { border-bottom: 1px solid #DDD; margin-top: 1px; padding: 6px; }
-.table-nice tr.alt td { background-color: #EEE; }
+.table-nice tr.odd { background-color: #EEE; }
+.table-nice tr.even td { border-top: 1px solid #fff; }
 
 #sidebar { position: relative; float: right; width: 18%; min-height: 450px; /*background-color: #d8dacf;*/ top: 52px; }
 #sidebar .inner { padding: 0 15px; }

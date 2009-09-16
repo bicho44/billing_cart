@@ -15,3 +15,4 @@ $config['invoices/new'] = 'invoices/add';
 
 // Contacts routing
 $config['contacts/new'] = 'contacts/add';
+$config['contacts/new/([A-Za-z0-9\-]+)'] = 'contacts/add/$1';

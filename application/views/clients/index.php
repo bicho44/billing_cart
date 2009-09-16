@@ -9,13 +9,12 @@
 		</thead>
 		<tbody>
 		<?php 
-            $alt = '';
+            $even_odd = '';
             foreach ($clients as $client) {
-            $alt = ( ' alt' != $alt ) ? ' alt' : ''; ?>
-			<tr class="node<?php echo $alt; ?>">
+            $even_odd = ( ' even' != $even_odd ) ? ' even' : ' odd'; ?>
+			<tr class="node<?php echo $even_odd; ?>">
 				<td><?php echo $client['company']; ?></td>
 				<td>
-					<a href="<?php echo url::site('contacts/new/' . $client['id']); ?>">Add Contact</a>
 					<div>
 					<?php 
 						$contacts = $client['contact'];
@@ -29,7 +28,7 @@
 					<?php endif ?>
 					</div>
 				</td>
-				<td><a href="<?php echo url::site('clients/edit/' . $client['id']); ?>">Edit</a></td>
+				<td><a href="<?php echo url::site('clients/edit/' . $client['id']); ?>">Edit</a> | <a href="<?php echo url::site('contacts/new/' . $client['id']); ?>">Add Contact</a></td>
 			</tr>
 		<?php } ?>
 		</tbody>
