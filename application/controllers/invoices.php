@@ -55,7 +55,8 @@ class Invoices_Controller extends Core_Controller
 	public function add() {
         $client_id = $this->input->post('client');
         if($client_id == '' AND $client_id != '-') url::redirect('clients/new?client=' . urlencode($this->input->post('client_new')));
-
+        
+        $invoices = ORM::factory('invoice');
         $clients = $this->cache->get('client') ? $this->cache->get('client') : ORM::factory('client')->find_all_as_array();
 
         // $client_list = array();
@@ -63,9 +64,9 @@ class Invoices_Controller extends Core_Controller
             $client_list[$client['id']] = $client['company'];
         }
         
-        $data['type'] = array('hours', 'services', 'project');
+        $data['type'] = array('hour', 'day', 'service', 'product');
 
-        $form = Formo::factory('invoice_add')->set('class', 'smart-form')
+        $form = Formo::factory('invoice_add')->set('class', 'simple-form')
                                     ->add('invoice_id', array('class'=>'size', 'label'=>'Invoice ID'))
                                     ->add('po_number', array('class'=>'size', 'label'=>'P.O. Number'))
                                     ->add_select('client', $client_list, array('class'=>'size', 'value'=>$client_id))

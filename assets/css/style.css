@@ -139,7 +139,7 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #sidebar #page-types li ul li a span { background: transparent url(../images/assets.png) no-repeat scroll -168px -40px; padding-left: 20px; }
 #sidebar #page-types li ul li a:hover span { color: #fff; }
 
-.invoice-info { width: 450px; }
+.invoice-info { width: 520px; }
 
 
 /* Form Elements */
@@ -159,6 +159,25 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #content .smart-form div.actions #checkbox label { color: #777; margin: 0; padding: 0 5px 0 0; }
 #content .smart-form p input.submit { float: right; margin: 0 20px 0 0; }
 #content .smart-form #next .button { background: #376ca2 url(../images/btn_bg.gif) repeat-x scroll left top; border: 1px solid #1a5189; color: #fff; cursor: pointer; padding: 10px 20px; text-decoration: none; }
+
+#content .simple-form { padding: 8px 0 0; }
+#content .simple-form p { margin-bottom: 10px; }
+#content .simple-form p label { float: left; width: 144px; padding: 4px 0; }
+#content .simple-form p.checkbox label { padding: 0; }
+#content .simple-form p input { font-family: Verdana, Arial, sans-serif, sans-serif; font-size: 1.1em; font-weight: normal; }
+#content .simple-form p input.size { border: 1px solid #ccc; padding: 4px; width: 340px; }
+#content .simple-form input.qty { margin: 0 4px; width: 40px; }
+#content .simple-form input,
+#content .simple-form textarea { border: 1px solid #ccc; padding: 4px; }
+#content .simple-form select { border: 1px solid #ccc; padding: 3px 4px; }
+#content .simple-form .errorMessage { color: #f00; padding: 0 0 0 98px; }
+#content .simple-form div.actions { float: right; margin-top: 9px; padding-right: 2px; text-align: right; }
+#content .simple-form div.actions input { background-color: #e51d9b; border: none; color: #fff; font-weight: bold; padding: 10px 10px 7px 12px; }
+#content .simple-form div.actions #checkbox { display: block; margin: 10px 0; text-align: center; }
+#content .simple-form div.actions #checkbox input { background: none; border: 1px solid; margin: 0; padding: 0; }
+#content .simple-form div.actions #checkbox label { color: #777; margin: 0; padding: 0 5px 0 0; }
+#content .simple-form p input.submit { float: right; margin: 0 20px 0 0; }
+#content .simple-form #next .button { background: #376ca2 url(../images/btn_bg.gif) repeat-x scroll left top; border: 1px solid #1a5189; color: #fff; cursor: pointer; padding: 10px 20px; text-decoration: none; }
 
 /* Overide styles */
 textarea:focus, input[type='text']:focus, input[type='password']:focus, select:focus { border-color: #aaa; outline: none; }
