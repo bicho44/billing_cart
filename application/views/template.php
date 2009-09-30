@@ -22,11 +22,11 @@
                 </a>
             </div>
         </div>
-        <!-- TODO: create navigation dynamically -->
+        
         <div id="nav">
             <ul>
                 <?php foreach (theme::nav('active') as $nav): ?>
-                    <li id="<?php echo $nav['cssid']; ?>" class="<?php echo $nav['cssmode']; ?> <?php echo $nav['align']; ?>">
+                    <li id="<?php echo $nav['cssid']; ?>" class="<?php echo $nav['align']; ?> <?php echo $nav['cssmode']; ?>">
                         <a href="<?php echo $nav['url']; ?>" title="Go to the <?php echo $nav['title']; ?> page"><?php echo $nav['title']; ?></a>
                     </li>
                 <?php endforeach ?>

@@ -26,7 +26,7 @@ body { font: normal 0.75em/1.5em Verdana, Arial, sans-serif; margin: 0; }
 #nav ul { margin: 0; padding: 12px 16px 3px; }
 #nav ul li { display: inline; margin-right: -2px; }
 #nav ul li a { background: #3C89AB url(../images/assets.png) no-repeat scroll 0 -33px; color: #fff; padding: 5px 10px; text-decoration: none; }
-#nav ul li.active a { background-color: #fff; background-image: none; color: #3C89AB; }
+#nav ul li.active a { background-color: #fff !important; background-image: none !important; color: #3C89AB !important; }
 #nav ul li.right { float: right; margin-left: 4px; }
 #nav ul li.right a { background: #3C89AB url(../images/assets.png) no-repeat scroll 0 -60px; }
 

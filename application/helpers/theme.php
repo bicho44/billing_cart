@@ -65,14 +65,18 @@ class theme_Core
         return $navi;
 	}
 	
-	public function hook($name = '') {
+	public function hook($name = '', $return = false) {
         if(isset($name) AND is_array($name)) {
             foreach ($name as $view => $data) {
                 $file = APPPATH . 'views/' .$view . '.php';
                 if(file_exists($file)){
-                    if(isset($data) AND !empty($data)) View::factory($view, $data)->render(TRUE);
-                    else View::factory($view)->render(TRUE);
+                	if ($return !== true) {
+                		if(isset($data) AND !empty($data)) View::factory($view, $data)->render(TRUE);
+                    	else View::factory($view)->render(TRUE);
+                	}
+                    return false;
                 }
+                return false;
             }
         }
 	}

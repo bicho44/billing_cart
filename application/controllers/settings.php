@@ -13,10 +13,11 @@
 class Settings_Controller extends Core_Controller {
     public function __construct() {
         parent::__construct();
+        $this->template->page_title = __('Settings');
     }
 
     public function index() {
-        
+        $this->template->content = new View('settings/index');
     }
 }
 /* End of file settings.php */
