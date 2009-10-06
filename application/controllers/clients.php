@@ -52,11 +52,11 @@ class Clients_Controller extends Core_Controller
         $this->template->content->clients = $client_contact;
 	}
 	
-	public function add($client = NULL) {
-        $client = $this->input->get('client');
+	public function add($client_name = NULL) {
+        $client_name = $this->input->get('client');
 
         $form = Formo::factory('client_add')->set('class', 'smart-form')
-                ->add('company', array('class'=>'size', 'value'=>$client))
+                ->add('company', array('class'=>'size', 'value'=>$client_name))
                 ->add('address', array('class'=>'size'))
                 ->add('address1', array('class'=>'size', 'required'=>FALSE))
                 ->add('city', array('class'=>'size'))
@@ -76,8 +76,12 @@ class Clients_Controller extends Core_Controller
             $client->phone = $form->phone->value;
             $client->fax = $form->fax->value;
             $client->url = $form->url->value;
-
-            ($client->save() AND $this->cache->delete_tag('clients') AND url::redirect('clients'));
+            
+            ($client->save() AND $this->cache->delete_tag('clients'));
+            // Redirect URL
+        	$redirect = $client_name !== NULL ? 'invoices/new/' . $client->id : 'clients';
+        	
+            url::redirect($redirect);
         }
 
         $this->template->content = new View('clients/add');

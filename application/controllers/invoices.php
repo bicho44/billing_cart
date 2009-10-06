@@ -52,8 +52,8 @@ class Invoices_Controller extends Core_Controller
         $this->template->content->invoices = $invoice_client;
 	}
 	
-	public function add() {
-        $client_id = $this->input->post('client');
+	public function add($client = NULL) {
+        $client_id = $this->input->post('client') ? $this->input->post('client') : $client;
         if($client_id == '' AND $client_id != '-') url::redirect('clients/new?client=' . urlencode($this->input->post('client_new')));
         
         $invoices = ORM::factory('invoice');
@@ -64,29 +64,45 @@ class Invoices_Controller extends Core_Controller
             $client_list[$client['id']] = $client['company'];
         }
         
-        $data['type'] = array('hour', 'day', 'service', 'product');
+        $data = array('hour', 'day', 'service', 'product');
 
         $form = Formo::factory('invoice_add')->set('class', 'simple-form')
                                     ->add('invoice_id', array('class'=>'size', 'label'=>'Invoice ID'))
-                                    ->add('po_number', array('class'=>'size', 'label'=>'P.O. Number'))
+                                    ->add('po_number', array('class'=>'size', 'label'=>'P.O. Number', 'required'=>FALSE))
                                     ->add_select('client', $client_list, array('class'=>'size', 'value'=>$client_id))
-                                    ->add_textarea('notes', array('class'=>'size'))
+                                    ->add_textarea('notes', array('class'=>'size', 'required'=>FALSE))
+                                    
+                                    ->add('qty', array('class'=>'qty'))
+                                    ->add_select('type', $data)
+                                    ->add_textarea('description')
+                                    ->add('unit_price', array('class'=>'qty'))
+                                    
                                     ->add('submit', 'Submit');
 
         if($form->validate()){
+        	// echo Kohana::debug($form); die;
 
             $invoice = ORM::factory('invoice');
-            $invoice->invoice_id = $form->invoice_id->value;
+            $invoice->invoice_no = $form->invoice_id->value;
             $invoice->po_number = $form->po_number->value;
             $invoice->client_id = $form->client->value;
             $invoice->notes = $form->notes->value;
+            $invoice->save();
+            
+            $item = ORM::factory('item');
+            $item->qty = $form->qty->value;
+            $item->description = $form->description->value;
+            $item->unit_price = $form->unit_price->value;
+            $item->type = $form->type->value;
+            $item->invoice_id = $invoice->id;
 
-            ($invoice->save() AND $this->cache->delete_tag('clients') AND url::redirect('invoices'));
+            ($item->save() AND $this->cache->delete_tag('clients'));
+            url::redirect('invoices');
         }
 
         $this->template->content = new View('invoices/add', $form->get(TRUE));
         $this->template->content->client_name = $client_list[$client_id];
-        $this->template->content->item_view = new View('invoices/items', $data);
+        $this->template->content->item_view = new View('invoices/items', $form->get(TRUE));
 	}
 }
 /* End of file invoice.php */
