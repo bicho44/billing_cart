@@ -28,6 +28,26 @@ class Invoices_Controller extends Core_Controller
 	}
 	
 	public function index() {
+		// Check if cached and cache if its not
+        if (!$client_contact = $this->cache->get('client')) {
+            $clients = ORM::factory('client');
+
+            $client_contact = array();
+            foreach ($clients->find_all() as $client) {
+                $client_contact[$client->id] = array();
+
+                $client_contact[$client->id] = $client->as_array();
+                $client_contact[$client->id]['contact'] = array();
+                foreach ($client->contacts as $contact) {
+                    array_push($client_contact[$client->id]['contact'], $contact->as_array());
+                }
+            }
+
+            // Save cache and give it a tag
+            $tags = array('clients', 'contacts');
+            $this->cache->set('client', $client_contact, $tags);
+        }
+		
         // Check if cached and cache if its not
         if (!$invoice_client = $this->cache->get('invoice')) {
             $invoices = ORM::factory('invoice');
@@ -37,8 +57,8 @@ class Invoices_Controller extends Core_Controller
                 $invoice_client[$invoice->id] = array();
 
                 $invoice_client[$invoice->id] = $invoice->as_array();
-                $invoice_client[$invoice->id]['item'] = array();
-                /*foreach ($invoice->items as $item) {
+                /*$invoice_client[$invoice->id]['item'] = array();
+                foreach ($invoice->items as $item) {
                         array_push($invoice_client[$invoice->id]['item'], $item->as_array());
                 }*/
             }
@@ -47,9 +67,10 @@ class Invoices_Controller extends Core_Controller
             $tags = array('clients', 'invoice');
             $this->cache->set('invoice', $invoice_client, $tags);
         }
-
+        
         $this->template->content = new View('invoices/index');
         $this->template->content->invoices = $invoice_client;
+        $this->template->content->client = $client_contact;
 	}
 	
 	public function add($client = NULL) {
